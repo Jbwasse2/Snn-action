@@ -1,7 +1,6 @@
 import torchvision.datasets as datasets
 import torch
 
-import pudb; pu.db
 #Get data
 ucf101_trainset = datasets.UCF101(root='/home/justin/research/action_recognition/ucf_data/videos/', annotation_path='/home/justin/research/action_recognition/ucf_data/ucfTrainTestlist/', frames_per_clip=30, train=True, transform=None)
 ucf101_testset = datasets.UCF101(root='/home/justin/research/action_recognition/ucf_data/videos/', annotation_path='/home/justin/research/action_recognition/ucf_data/ucfTrainTestlist/', frames_per_clip=30, train=False, transform=None)
@@ -28,4 +27,3 @@ test_loader = torch.utils.data.DataLoader(
                 batch_size=batch_size,
                 shuffle=False)
 test_classes = ucf101_testset.classes
-import pudb; pu.db
