@@ -2,8 +2,11 @@ import torchvision.datasets as datasets
 import torch
 
 #Get data
-ucf101_trainset = datasets.UCF101(root='/home/justin/research/action_recognition/ucf_data/videos/', annotation_path='/home/justin/research/action_recognition/ucf_data/ucfTrainTestlist/', frames_per_clip=30, train=True, transform=None)
-ucf101_testset = datasets.UCF101(root='/home/justin/research/action_recognition/ucf_data/videos/', annotation_path='/home/justin/research/action_recognition/ucf_data/ucfTrainTestlist/', frames_per_clip=30, train=False, transform=None)
+#data_folder= "./ucf_data/"
+data_folder="/home/justin/data/UCF101/"
+ucf101_trainset = datasets.UCF101(root=data_folder + 'videos', annotation_path=data_folder+'ucfTrainTestlist/', frames_per_clip=30, train=True, transform=None, num_workers=1)
+ucf101_testset = datasets.UCF101(root=data_folder + 'videos', annotation_path=data_folder+'ucfTrainTestlist/', frames_per_clip=30, train=False, transform=None, num_workers=1)
+
 
 #Very it works
 def verify_dataset(dataset):
