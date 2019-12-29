@@ -80,7 +80,7 @@ class LMUCell(nengo.Network):
             )
 
 #Create SNN 
-def build_model(learning_rate=1e-5, arm_sim_dt=1e-3, f_ext_scale=100.):
+def build_model():
     with nengo.Network(seed=seed) as net:
         # remove some unnecessary features to speed up the training
         nengo_dl.configure_settings(
