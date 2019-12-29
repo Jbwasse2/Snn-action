@@ -1,4 +1,7 @@
-data/
+#Personal stuff
+ucf_data/videos/
+ucf_data/ucfTrainTestlist/
+ucf_data/UCF101TrainTestSplits-RecognitionTask.zip
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -128,3 +131,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+ucf_data/
