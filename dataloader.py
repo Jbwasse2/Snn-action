@@ -5,8 +5,8 @@ from dataset import ucf101
 
 args = get_args()
 #Get data
-data_folder= "./ucf_data/"
-#data_folder="/home/justin/data/UCF101/"
+#data_folder= "./ucf_data/"
+data_folder="/home/justin/data/UCF101/"
 transforms =  transforms.Compose([
     transforms.ToPILImage(),
     transforms.RandomResizedCrop(224),
