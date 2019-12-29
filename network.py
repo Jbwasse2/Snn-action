@@ -8,10 +8,6 @@ import nengo_dl
 import matplotlib.pyplot as plt
 from nengo.utils.filter_design import cont2discrete
 #Set seeds
-seed = 0
-tf.random.set_seed(seed)
-np.random.seed(seed)
-rng = np.random.RandomState(seed)
 
 #Create Conv Network (Just copy VGG16 or Resnet idc)
 def build_CNN():
@@ -20,6 +16,7 @@ def build_CNN():
         param.requires_grad = False
         # Replace the last fully-connected layer
         # Parameters of newly constructed modules have requires_grad=True by default
+#    model.conv1 = nn.Conv2d(num_input_channel, 64, kernel_size=7, stride=2, padding=3,bias=False)
     model.fc = nn.Linear(2048, 101)
     return model
 
@@ -82,8 +79,8 @@ class LMUCell(nengo.Network):
             )
 
 #Create SNN 
-def build_model(image_size):
-    with nengo.Network(seed=seed) as net:
+def build_SNN(image_size, args):
+    with nengo.Network(seed=args.seed) as net:
         # remove some unnecessary features to speed up the training
         nengo_dl.configure_settings(
             trainable=None, stateful=False, keep_history=False,
