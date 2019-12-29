@@ -132,3 +132,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 ucf_data/
+*.sw
+*.sw*

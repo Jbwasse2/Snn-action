@@ -14,12 +14,14 @@ np.random.seed(seed)
 rng = np.random.RandomState(seed)
 
 #Create Conv Network (Just copy VGG16 or Resnet idc)
-model = torch.hub.load('pytorch/vision:v0.4.2', 'resnet101', pretrained=True)
-for param in model.parameters():
-    param.requires_grad = False
-    # Replace the last fully-connected layer
-    # Parameters of newly constructed modules have requires_grad=True by default
-model.fc = nn.Linear(2048, 101)
+def build_CNN():
+    model = torch.hub.load('pytorch/vision:v0.4.2', 'resnet101', pretrained=True)
+    for param in model.parameters():
+        param.requires_grad = False
+        # Replace the last fully-connected layer
+        # Parameters of newly constructed modules have requires_grad=True by default
+    model.fc = nn.Linear(2048, 101)
+    return model
 
 #Create LMU cell
 #See https://www.nengo.ai/nengo-dl/examples/lmu.html
@@ -80,7 +82,7 @@ class LMUCell(nengo.Network):
             )
 
 #Create SNN 
-def build_model():
+def build_model(image_size):
     with nengo.Network(seed=seed) as net:
         # remove some unnecessary features to speed up the training
         nengo_dl.configure_settings(
@@ -88,14 +90,14 @@ def build_model():
         )
 
         # input node
-        inp = nengo.Node(np.zeros(train_images.shape[-1]))
+        inp = nengo.Node(np.zeros(image_size[-1]))
 
         # lmu cell
         lmu = LMUCell(
             units=212,
             order=256,
-            theta=train_images.shape[1],
-            input_d=train_images.shape[-1]
+            theta=image_size[1],
+            input_d=image_size[-1]
         )
         conn = nengo.Connection(inp, lmu.x, synapse=None)
         net.config[conn].trainable = False
@@ -108,5 +110,5 @@ def build_model():
         # only record the output on the last timestep (which is all we need
         # on this task)
         p = nengo.Probe(out)
+    return net
 
-SNN = build_model()
