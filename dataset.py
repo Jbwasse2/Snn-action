@@ -40,7 +40,6 @@ class ucf101(datasets.UCF101):
 
             return video, label
         except Exception as e:
-            import pudb; pu.db
             video, audio, info, video_idx = self.video_clips.get_clip(0)
             label = self.samples[self.indices[video_idx]][1]
 

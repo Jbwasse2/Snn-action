@@ -24,7 +24,7 @@ def get_args():
     parser.add_argument('--workers', type=int, default=1, metavar='W',
                         help='number of workers to get data')
 
-    parser.add_argument('--save-model', action='store_true', default=False,
+    parser.add_argument('--save-model', action='store_true', default=True,
                         help='For Saving the current Model')
     args = parser.parse_args()
     return args
