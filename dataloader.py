@@ -11,7 +11,7 @@ args = get_args()
 data_folder="/home/justin/data/UCF101/"
 transforms =  transforms.Compose([
     transforms.ToPILImage(),
-    transforms.RandomResizedCrop(50),
+    transforms.RandomResizedCrop(224),
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
  ])
@@ -41,7 +41,7 @@ def create_dataloaders(args):
 
     test_loader = torch.utils.data.DataLoader(
                     dataset=ucf101_testset,
-                    batch_size=args.batch_size,
+                    batch_size=args.test_batch_size,
                     num_workers=args.workers,
                     shuffle=True)
     return train_loader, test_loader

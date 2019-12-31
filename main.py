@@ -32,14 +32,22 @@ def test(args, model, device, test_loader, epoch):
     correct = 0
     accuracies = []
     with torch.no_grad():
-        for data, target in test_loader:
+        for batch_idx, (data, target) in enumerate(test_loader):
             data, target = data.to(device), target.to(device)
             data = data.squeeze()
+            #I have a gut feeling that the data shape could be wrong sometimes
+            if len(data.shape) != 4:
+                continue
             output = model(data)
             test_loss += F.cross_entropy(output, target)
             accuracies.append(get_accuracy(output, target))
             pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
             correct += pred.eq(target.view_as(pred)).sum().item()
+            if batch_idx % args.log_interval == 0:
+                step = epoch * len(test_loader) + batch_idx
+                print('Test Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
+                    epoch, batch_idx * len(data), len(test_loader.dataset),
+                    100. * batch_idx / len(test_loader), test_loss.item()))
 
     accuracy = sum(accuracies)/ len(accuracies) 
     test_loss /= len(test_loader.dataset)
@@ -70,6 +78,9 @@ def train(args, model, device, train_loader, optimizer, epoch):
         data, target = data.to(device), target.to(device)
         optimizer.zero_grad()
         data = data.squeeze()
+        #I have a gut feeling that the data shape could be wrong sometimes
+        if len(data.shape) != 4:
+            continue
         output = model(data)
         loss = F.cross_entropy(output, target)
         loss.backward()
