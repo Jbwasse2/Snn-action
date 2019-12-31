@@ -138,6 +138,8 @@ def CRNN_final_prediction(model, device, loader):
             output = rnn_decoder(cnn_encoder(X))
             y_pred = output.max(1, keepdim=True)[1]  # location of max log-probability as prediction
             all_y_pred.extend(y_pred.cpu().data.squeeze().numpy().tolist())
+            print(y.tolist(),y_pred.tolist())
+            import pudb; pu.db
 
     return all_y_pred
 

@@ -43,9 +43,8 @@ RNN.load_state_dict(torch.load(RNN_PATH))
 RNN.eval()
 
 #Step 2 Attach RNN to CNN and get results to test everything works
-
-
-
+data_path = "/home/justin/data/UCF101/preprocessed/jpegs_256"
+action_name_path = './UCF101actions.pkl'
 
 
 #Step 2 - Remove FC layer of CNN
