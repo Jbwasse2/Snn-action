@@ -1,70 +1,82 @@
-from torchvision import transforms
+import os
+import numpy as np
 import torch
-from utils import get_args
-from dataset import ucf101
-
-    
-
-args = get_args()
-#Get data
-#data_folder= "./ucf_data/"
-data_folder="/home/justin/data/UCF101/"
-transforms =  transforms.Compose([
-    transforms.ToPILImage(),
-    transforms.RandomResizedCrop(224),
-    transforms.ToTensor(),
-    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
- ])
-ucf101_trainset = ucf101(root=data_folder + 'videos', annotation_path=data_folder+'ucfTrainTestlist/', frames_per_clip=1, train=True, transform=transforms, num_workers=args.workers)
-ucf101_testset = ucf101(root=data_folder + 'videos', annotation_path=data_folder+'ucfTrainTestlist/', frames_per_clip=1, train=False, transform=transforms, num_workers=args.workers)
+import torch.nn as nn
+import torch.nn.functional as F
+import torchvision.models as models
+import torchvision.transforms as transforms
+import torch.utils.data as data
+import torchvision
+from torch.autograd import Variable
+import matplotlib.pyplot as plt
+from functions import *
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+from sklearn.metrics import accuracy_score
+import pickle
 
 
-#Very it works
-def verify_dataset(dataset):
-    if len(dataset.samples) == 0 or len(dataset.classes) <= 1 or len(dataset.indices) == 0:
-        raise RuntimeError("Data set up incorrectly!")
-verify_dataset(ucf101_testset)
-verify_dataset(ucf101_trainset)
+data_path = "/home/justin/data/UCF101/preprocessed/jpegs_256/"
+# training parameters
+k = 101             # number of target category
+epochs = 120        # training epochs
+batch_size = 40  
+learning_rate = 1e-3
+log_interval = 10   # interval for displaying training info
+res_size = 224        # ResNet image size
 
-def get_classes():
-    train_classes = ucf101_trainset.classes
-    test_classes = ucf101_testset.classes
-    return train_classes, test_classes
+# Select which frame to begin & end in videos
+begin_frame, end_frame, skip_frame = 1, 29, 1
+params = {'batch_size': batch_size, 'shuffle': True, 'num_workers': 4, 'pin_memory': True} if use_cuda else {}
 
-#Create data loaders
-def create_dataloaders(args):
-    train_loader = torch.utils.data.DataLoader(
-                     dataset=ucf101_trainset,
-                     batch_size=args.batch_size,
-                     num_workers=args.workers,
-                     shuffle=True)
+# load UCF101 actions names
+with open(action_name_path, 'rb') as f:
+    action_names = pickle.load(f)
 
-    test_loader = torch.utils.data.DataLoader(
-                    dataset=ucf101_testset,
-                    batch_size=args.test_batch_size,
-                    num_workers=args.workers,
-                    shuffle=True)
-    return train_loader, test_loader
+# convert labels -> category
+le = LabelEncoder()
+le.fit(action_names)
 
-def get_image_size():
-    image_size = ucf101_trainset[0][0][0][0,:,:].shape
-    return image_size
+# show how many classes there are
+list(le.classes_)
 
-if __name__ == "__main__":
-    import time
-    from utils import get_args, setup
-    args = get_args()
-    device, kwargs = setup(args)
-    CNN = None
-    def train(args, model, device, train_loader, optimizer, epoch):
-        #Train_loader gets video, audio, label
-        start = time.process_time()
-        for batch_idx, (data, target) in enumerate(train_loader):
-            print(time.process_time() - start)
-            start = time.process_time()
-    train_dataloader, test_dataloader = create_dataloaders(args)
-    epoch = 1
-    optimizer = None
-    scheduler = None 
+# convert category -> 1-hot
+action_category = le.transform(action_names).reshape(-1, 1)
+enc = OneHotEncoder()
+enc.fit(action_category)
 
-    train(args, CNN, device, train_dataloader, optimizer, epoch)
+# # example
+# y = ['HorseRace', 'YoYo', 'WalkingWithDog']
+# y_onehot = labels2onehot(enc, le, y)
+# y2 = onehot2labels(le, y_onehot)
+
+actions = []
+fnames = os.listdir(data_path)
+
+all_names = []
+for f in fnames:
+    loc1 = f.find('v_')
+    loc2 = f.find('_g')
+    actions.append(f[(loc1 + 2): loc2])
+
+    all_names.append(f)
+
+
+# list all data files
+all_X_list = all_names                  # all video file names
+all_y_list = labels2cat(le, actions)    # all video labels
+
+# train, test split
+train_list, test_list, train_label, test_label = train_test_split(all_X_list, all_y_list, test_size=0.25, random_state=42)
+
+transform = transforms.Compose([transforms.Resize([res_size, res_size]),
+                                transforms.ToTensor(),
+                                transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
+
+selected_frames = np.arange(begin_frame, end_frame, skip_frame).tolist()
+
+train_set, valid_set = Dataset_CRNN(data_path, train_list, train_label, selected_frames, transform=transform), \
+                       Dataset_CRNN(data_path, test_list, test_label, selected_frames, transform=transform)
+
+train_loader = data.DataLoader(train_set, **params)
+valid_loader = data.DataLoader(valid_set, **params)

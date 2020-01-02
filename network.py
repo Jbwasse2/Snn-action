@@ -7,18 +7,6 @@ import tensorflow as tf
 import nengo_dl
 import matplotlib.pyplot as plt
 from nengo.utils.filter_design import cont2discrete
-#Set seeds
-
-#Create Conv Network (Just copy VGG16 or Resnet idc)
-def build_CNN():
-    model = torch.hub.load('pytorch/vision:v0.4.2', 'resnet18', pretrained=True)
-    for param in model.parameters():
-        param.requires_grad = False
-        # Replace the last fully-connected layer
-        # Parameters of newly constructed modules have requires_grad=True by default
-#    model.conv1 = nn.Conv2d(num_input_channel, 64, kernel_size=7, stride=2, padding=3,bias=False)
-    model.fc = nn.Linear(512, 101)
-    return model
 
 #Create LMU cell
 #See https://www.nengo.ai/nengo-dl/examples/lmu.html
