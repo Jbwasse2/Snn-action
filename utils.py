@@ -2,6 +2,7 @@ import argparse
 import tensorflow as tf
 import numpy as np
 import torch
+from tqdm import tqdm
 
 def get_args():
     parser = argparse.ArgumentParser(description='Action Recognition')
@@ -41,4 +42,22 @@ def setup(args):
 
     kwargs = {'num_workers': args.workers, 'pin_memory': True} if use_cuda else {}
     return device, kwargs
+
+def dataloader_to_np_array(cnn_encoder, device, loader):
+    feature_space = []
+    labels = []
+    with torch.no_grad():
+        for batch_idx, (X, y) in enumerate(tqdm(loader)):
+            # distribute data to device
+            X = X.to(device)
+            output = cnn_encoder(X)
+#            output = output.reshape(output.shape[0],28*512)
+            feature_space.extend(output.cpu().data.squeeze().numpy().tolist())
+            labels.extend(y.cpu().data.squeeze().numpy().tolist())
+    #Convert lists into np.arrays
+    labels_np = np.array(labels)
+#    feature_space_np =np.array([np.array(xi) for xi in feature_space])
+    #feature_space_np =np.array([np.array(np.array(yi) for yi in xi) for xi in feature_space])
+    feature_space_np = np.array(feature_space)
+    return feature_space_np, labels_np
 
