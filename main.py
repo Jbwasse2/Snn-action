@@ -8,7 +8,7 @@ from tensorboardX import SummaryWriter
 import nengo_dl
 import tensorflow as tf
 
-from dataloader import valid_loader, train_loader, get_image_size
+from dataloader import valid_loader, train_loader 
 from network import build_SNN
 from utils import get_args, setup, dataloader_to_np_array
 from logger import Logger
@@ -36,13 +36,12 @@ CNN.load_state_dict(torch.load(CNN_PATH))
 CNN.eval()
 
 #Step 2 - Attach LMU to CNN
-SNN = build_SNN(get_image_size(), args)
 
 # Nengo expects data in the form of a giant numpy array of data.
 train_data, train_labels = dataloader_to_np_array(CNN, device, train_loader)
 test_data, test_labels = dataloader_to_np_array(CNN, device, valid_loader)
 
-#Step 3 - Train CNN + LMU
+SNN = build_SNN(train_data.shape, args)
 
 with nengo_dl.Simulator(
         SNN, minibatch_size=5, unroll_simulation=14) as sim:
@@ -51,9 +50,11 @@ with nengo_dl.Simulator(
         optimizer=tf.optimizers.Adam(),
         metrics=["accuracy"],
     )
-#    import pudb; pu.db
+
+    foo= sim.evaluate(train_data, train_labels, verbose=1)
     print(
         "Initial test accuracy: %.2f%%"
         % (sim.evaluate(train_data, train_labels, verbose=1)["probe_accuracy"] * 100)
     )
+#Step 3 - Train CNN + LMU
 #Step 4 - Test

@@ -54,10 +54,9 @@ def dataloader_to_np_array(cnn_encoder, device, loader):
 #            output = output.reshape(output.shape[0],28*512)
             feature_space.extend(output.cpu().data.squeeze().numpy().tolist())
             labels.extend(y.cpu().data.squeeze().numpy().tolist())
-    #Convert lists into np.arrays
+    #Convert lists into np.arrays of shape (len(data), time, data)
     labels_np = np.array(labels)
-#    feature_space_np =np.array([np.array(xi) for xi in feature_space])
-    #feature_space_np =np.array([np.array(np.array(yi) for yi in xi) for xi in feature_space])
+    labels_np = np.tile(labels_np[:,None,None], (1,28,1))
     feature_space_np = np.array(feature_space)
     return feature_space_np, labels_np
 
