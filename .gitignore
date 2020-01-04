@@ -136,3 +136,4 @@ ucf_data/
 *.sw*
 video-classification
 *.pt
+var_data/*

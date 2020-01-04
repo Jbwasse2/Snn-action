@@ -18,7 +18,7 @@ from utils import get_args
 
 
 args = get_args()
-data_path = "/home/justin/data/UCF101/preprocessed/jpegs_256/data/small_data/"
+data_path = "/home/justin/data/UCF101/preprocessed/jpegs_256/data/jpegs_256/"
 # training parameters
 k = 101             # number of target category
 epochs = 120        # training epochs
@@ -30,7 +30,7 @@ res_size = 224        # ResNet image size
 # Select which frame to begin & end in videos
 begin_frame, end_frame, skip_frame = 1, 29, 1
 use_cuda = not args.no_cuda and torch.cuda.is_available()
-params = {'batch_size': batch_size, 'shuffle': True, 'num_workers': 4, 'pin_memory': True} if use_cuda else {}
+params = {'batch_size': batch_size, 'shuffle': True, 'num_workers': 0, 'pin_memory': True} if use_cuda else {}
 
 # load UCF101 actions names
 action_name_path = "./UCF101actions.pkl"
