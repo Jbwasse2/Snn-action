@@ -48,10 +48,10 @@ def load_pickle(filename):
         var_you_want_to_load_into = pickle.load(f)
     return var_you_want_to_load_into
 
-train_data = load_pickle("./train_data.pickle")
-test_data = load_pickle("./test_data.pickle")
-train_labels = load_pickle("./train_labels.pickle")
-test_labels= load_pickle("./test_labels.pickle")
+train_data = load_pickle("./var_data/train_data.pickle")
+test_data = load_pickle("./var_data/test_data.pickle")
+train_labels = load_pickle("./var_data/train_labels.pickle")
+test_labels= load_pickle("./var_data/test_labels.pickle")
 SNN = build_SNN(train_data.shape, args)
 
 with nengo_dl.Simulator(
@@ -69,7 +69,7 @@ with nengo_dl.Simulator(
 #Step 3 - Train CNN + LMU
     sim.fit(train_data, train_labels, epochs=10)
     # save the parameters to file
-    sim.save_params("./mnist_params")
+    sim.save_params("./var_data/mnist_params")
     #Step 4 - Test
     print(
         "test accuracy: %.2f%%"

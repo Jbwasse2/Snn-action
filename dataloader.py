@@ -33,7 +33,7 @@ use_cuda = not args.no_cuda and torch.cuda.is_available()
 params = {'batch_size': batch_size, 'shuffle': True, 'num_workers': 0, 'pin_memory': True} if use_cuda else {}
 
 # load UCF101 actions names
-action_name_path = "./UCF101actions.pkl"
+action_name_path = "./var_data/UCF101actions.pkl"
 with open(action_name_path, 'rb') as f:
     action_names = pickle.load(f)
 
