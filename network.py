@@ -1,15 +1,16 @@
+import matplotlib.pyplot as plt
+import nengo
+import nengo_dl
+import nengo_loihi
 import numpy as np
+import tensorflow as tf
 import torch
 import torch.nn as nn
-import nengo
-import nengo_loihi
-import tensorflow as tf
-import nengo_dl
-import matplotlib.pyplot as plt
 from nengo.utils.filter_design import cont2discrete
 
-#Create LMU cell
-#See https://www.nengo.ai/nengo-dl/examples/lmu.html
+
+# Create LMU cell
+# See https://www.nengo.ai/nengo-dl/examples/lmu.html
 class LMUCell(nengo.Network):
     def __init__(self, units, order, theta, input_d, **kwargs):
         super().__init__(**kwargs)
@@ -41,7 +42,8 @@ class LMUCell(nengo.Network):
             # delay, so we can think of any connections with synapse=0 as representing
             # value_{t-1}
             nengo.Connection(
-                self.x, self.u, transform=np.ones((1, input_d)), synapse=None)
+                self.x, self.u, transform=np.ones((1, input_d)), synapse=None
+            )
             nengo.Connection(self.h, self.u, transform=np.zeros((1, units)), synapse=0)
             nengo.Connection(self.m, self.u, transform=np.zeros((1, order)), synapse=0)
 
@@ -58,7 +60,8 @@ class LMUCell(nengo.Network):
                 self.x, self.h, transform=np.zeros((units, input_d)), synapse=None
             )
             nengo.Connection(
-                self.h, self.h, transform=np.zeros((units, units)), synapse=0)
+                self.h, self.h, transform=np.zeros((units, units)), synapse=0
+            )
             nengo.Connection(
                 self.m,
                 self.h,
@@ -66,12 +69,13 @@ class LMUCell(nengo.Network):
                 synapse=None,
             )
 
-#Create SNN 
+
+# Create SNN
 def build_SNN(image_size, args):
     with nengo.Network(seed=args.seed) as net:
         # remove some unnecessary features to speed up the training
         nengo_dl.configure_settings(
-            trainable=None, stateful=False, keep_history=True,
+            trainable=True, stateful=True, keep_history=True,
         )
 
         # input node
@@ -79,10 +83,7 @@ def build_SNN(image_size, args):
 
         # lmu cell
         lmu = LMUCell(
-            units=212,
-            order=256,
-            theta=image_size[1],
-            input_d=image_size[-1]
+            units=1024, order=2048, theta=image_size[1], input_d=image_size[-1]
         )
         conn = nengo.Connection(inp, lmu.x, synapse=None)
         net.config[conn].trainable = False
@@ -96,4 +97,3 @@ def build_SNN(image_size, args):
         # on this task)
         p = nengo.Probe(out)
     return net
-
