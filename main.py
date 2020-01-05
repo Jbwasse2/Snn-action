@@ -52,8 +52,17 @@ if not config["SNN_trainer"]["import_CNN_forward_data"]:
     # Forward pass data through CNN
     # Nengo expects data in the form of a giant numpy array of data.
     train_loader, valid_loader = get_dataloaders(config)
-    train_data, train_labels = dataloader_to_np_array(CNN, device, train_loader)
-    test_data, test_labels = dataloader_to_np_array(CNN, device, valid_loader)
+    train_data, train_labels = dataloader_to_np_array(CNN, device, train_loader, config)
+    test_data, test_labels = dataloader_to_np_array(CNN, device, valid_loader, config)
+
+    def save_pickle(filename, var):
+        with open(filename, "wb") as f:
+            pickle.dump(var, f)
+
+    save_pickle(config["pickle_locations"]["train_data"], train_data)
+    save_pickle(config["pickle_locations"]["test_data"], test_data)
+    save_pickle(config["pickle_locations"]["train_labels"], train_labels)
+    save_pickle(config["pickle_locations"]["test_labels"], test_labels)
 else:
     # Load data in that was outputted from CNN (This is fast)
     def load_pickle(filename):

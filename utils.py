@@ -3,6 +3,7 @@ from collections import OrderedDict
 from pathlib import Path
 
 import numpy as np
+
 import tensorflow as tf
 import torch
 from tqdm import tqdm
@@ -21,7 +22,7 @@ def setup(config):
     return device
 
 
-def dataloader_to_np_array(cnn_encoder, device, loader):
+def dataloader_to_np_array(cnn_encoder, device, loader, config):
     feature_space = []
     labels = []
     with torch.no_grad():
@@ -33,7 +34,9 @@ def dataloader_to_np_array(cnn_encoder, device, loader):
             labels.extend(y.cpu().data.squeeze().numpy().tolist())
     # Convert lists into np.arrays of shape (len(data), time, data)
     labels_np = np.array(labels)
-    labels_np = np.tile(labels_np[:, None, None], (1, 28, 1))
+    labels_np = np.tile(
+        labels_np[:, None, None], (1, config["SNN"]["end_frame"] - 1, 1)
+    )
     feature_space_np = np.array(feature_space)
     return feature_space_np, labels_np
 

@@ -82,12 +82,12 @@ def build_SNN(image_size, config):
         inp = nengo.Node(np.zeros(image_size[-1]))
 
         # lmu cell
-        lmu = LMUCell(units=20, order=52, theta=image_size[1], input_d=image_size[-1])
+        lmu = LMUCell(units=200, order=512, theta=image_size[1], input_d=image_size[-1])
         conn = nengo.Connection(inp, lmu.x, synapse=None)
         net.config[conn].trainable = False
 
         # dense linear readout
-        out = nengo.Node(size_in=101)
+        out = nengo.Node(size_in=51)
         nengo.Connection(lmu.h, out, transform=nengo_dl.dists.Glorot(), synapse=None)
 
         # record output. note that we set keep_history=False above, so this will

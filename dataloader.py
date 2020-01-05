@@ -14,10 +14,10 @@ from parse_config import ConfigParser
 
 # training parameters
 res_size = 224  # ResNet image size
-begin_frame, end_frame, skip_frame = 1, 29, 1
 
 
 def get_dataloaders(config):
+    begin_frame, end_frame, skip_frame = 1, config["SNN"]["end_frame"], 1
     data_path = config["data_path"]
     # Select which frame to begin & end in videos
     params = (
@@ -54,8 +54,10 @@ def get_dataloaders(config):
     for f in fnames:
         loc1 = f.find("v_")
         loc2 = f.find("_g")
-        actions.append(f[(loc1 + 2) : loc2])
-
+        if (f[(loc1 + 2) : loc2]) == "":
+            actions.append("golf")
+        else:
+            actions.append(f[(loc1 + 2) : loc2])
         all_names.append(f)
 
     # list all data files

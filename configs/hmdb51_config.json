@@ -1,0 +1,34 @@
+{
+    "name": "action_hmdb51",
+    "seed": 0,
+    "data_path" : "./data/hmdb51",
+    "use_cuda" : true,
+    "save_dir" : "./save/",
+    "dataloader": {
+        "shuffle" : true,
+        "pin_memory" : true,
+        "batch_size" : 32,
+        "workers" : 0,
+        "test_percent_size" : 0.15
+    },
+    "pickle_locations": {
+        "CNN_weights" : "./var_data/hmdb/cnn_encoder_epoch63_singleGPU.pth",
+        "SNN_weights" : "./var_data/hmdb/snn_params",
+        "action_names" : "./var_data/hmdb/actions.pickle",
+        "train_data": "./var_data/hmdb/train_data.pickle",
+        "test_data": "./var_data/hmdb/test_data.pickle",
+        "train_labels" : "./var_data/hmdb/train_labels.pickle",
+        "test_labels" : "./var_data/hmdb/test_labels.pickle"
+    },
+    "SNN": {
+        "minibatch_size": 100,
+        "unroll_simulation" : 16,
+        "end_frame" : 18
+    },
+    "SNN_trainer": {
+        "epochs": 5,
+        "import_CNN_forward_data" : true,
+        "get_initial_testing_accuracy":true,
+        "do_SNN_training" : true
+    }
+}
