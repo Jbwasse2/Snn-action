@@ -63,7 +63,6 @@ def get_dataloaders(config):
     all_y_list = labels2cat(le, actions)  # all video labels
 
     # train, test split
-    import pudb
 
     train_list, test_list, train_label, test_label = train_test_split(
         all_X_list,

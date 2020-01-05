@@ -3,7 +3,6 @@ import pickle
 from configparser import ConfigParser
 
 import nengo_dl
-import pudb
 import tensorflow as tf
 import torch
 import torch.nn as nn
