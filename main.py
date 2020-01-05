@@ -1,88 +1,105 @@
+import argparse
+import pickle
+from configparser import ConfigParser
+
+import nengo_dl
+import tensorflow as tf
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
-from tensorboardX import SummaryWriter
+import logging
+from torchvision import datasets, transforms
 
-from dataloader import get_classes, create_dataloaders, get_image_size
-from network import build_CNN, build_SNN
-from utils import get_args, setup
-from logger import Logger
-logger = Logger('./logs')
-args = get_args()
-device, kwargs = setup(args)
-#Step 1 - Train CNN
-SNN = build_SNN(get_image_size(), args)
-CNN = build_CNN()
+from dataloader import get_dataloaders
+from functions import DecoderRNN, ResCNNEncoder
+from network import build_SNN
+from parse_config import ConfigParser
+from utils import dataloader_to_np_array, setup
 
-#https://github.com/victoresque/pytorch-template/blob/master/model/metric.py
-def get_accuracy(output, target):
-    with torch.no_grad():
-        pred = torch.argmax(output, dim=1)
-        assert pred.shape[0] == len(target)
-        correct = 0
-        correct += torch.sum(pred == target).item()
-    return correct / len(target)
-
-def train(args, model, device, train_loader, optimizer, epoch):
-    model.train()
-    #Train_loader gets video, audio, label
-    for batch_idx, (data, target) in enumerate(train_loader):
-        data, target = data.to(device), target.to(device)
-        optimizer.zero_grad()
-        data = data.squeeze()
-        output = model(data)
-        loss = F.cross_entropy(output, target)
-        loss.backward()
-        optimizer.step()
-        accuracy = get_accuracy(output, target)
-        if batch_idx % args.log_interval == 0:
-            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
-                epoch, batch_idx * len(data), len(train_loader.dataset),
-                100. * batch_idx / len(train_loader), loss.item()))
-
-            # ================================================================== #
-            #                        Tensorboard Logging                         #
-            # ================================================================== #
-            #https://github.com/yunjey/pytorch-tutorial/blob/master/tutorials/04-utils/tensorboard/main.py
-
-            # 1. Log scalar values (scalar summary)
-            info = { 'loss': loss.item(), 'accuracy': accuracy }
-
-            for tag, value in info.items():
-                logger.scalar_summary(tag, value, batch_idx+1)
-
-            # 2. Log values and gradients of the parameters (histogram summary)
-            for tag, value in model.named_parameters():
-                tag = tag.replace('.', '/')
-                logger.histo_summary(tag, value.data.cpu().numpy(), batch_idx+1)
-                #logger.histo_summary(tag+'/grad', value.grad.data.cpu().numpy(), batch_idx+1)
-
-            # 3. Log training images (image summary)
-        #    info = { 'images': images.view(-1, 28, 28)[:10].cpu().numpy() }
-
-#            for tag, images in info.items():
-#                logger.image_summary(tag, images, batch_idx+1)
+logger = logging.getLogger(__name__)
 
 
+args = argparse.ArgumentParser(description="Action Recognition")
+args.add_argument(
+    "-c",
+    "--config",
+    default="./configs/config.json",
+    type=str,
+    help="config file path (default: ./configs/config.json)",
+)
+args.add_argument(
+    "-d",
+    "--device",
+    default=None,
+    type=str,
+    help="indices of GPUs to enable (default: all)",
+)
+
+config = ConfigParser.from_args(args)
+device = setup(config)
+# Step 1 - Get Pre-trained CNN
+# EncoderCNN architecture - Don't change architecture, it wont work.
+CNN = ResCNNEncoder().to(device)
+CNN.load_state_dict(torch.load(config["pickle_locations"]["CNN_weights"]))
 CNN = CNN.to(device)
-train_dataloader, test_dataloader = create_dataloaders(args.batch_size)
-optimizer = optim.Adadelta(CNN.parameters(), lr=args.lr)
-scheduler = StepLR(optimizer, step_size=1, gamma=args.gamma)
+CNN.eval()
 
-for epoch in range(1, args.epochs + 1):
-    train(args, CNN, device, train_dataloader, optimizer, epoch)
-    scheduler.step()
 
-if args.save_model:
-    torch.save(CNN.state_dict(), "action_cnn.pt")
+# Step 2 - Attach LMU to CNN
+if not config["SNN_trainer"]["import_CNN_forward_data"]:
+    # Forward pass data through CNN
+    # Nengo expects data in the form of a giant numpy array of data.
+    train_loader, valid_loader = get_dataloaders(config)
+    train_data, train_labels = dataloader_to_np_array(CNN, device, train_loader)
+    test_data, test_labels = dataloader_to_np_array(CNN, device, valid_loader)
+else:
+    # Load data in that was outputted from CNN (This is fast)
+    def load_pickle(filename):
+        with open(filename, "rb") as f:
+            var_you_want_to_load_into = pickle.load(f)
+        return var_you_want_to_load_into
 
-#Step 2 - Remove FC layer of CNN
+    train_data = load_pickle(config["pickle_locations"]["train_data"])
+    test_data = load_pickle(config["pickle_locations"]["test_data"])
+    train_labels = load_pickle(config["pickle_locations"]["train_labels"])
+    test_labels = load_pickle(config["pickle_locations"]["test_labels"])
 
-#Step 3 - Attach LMU to CNN
+SNN = build_SNN(train_data.shape, config)
 
-#Step 4 - Train CNN + LMU
+with nengo_dl.Simulator(
+    SNN,
+    minibatch_size=config["SNN"]["minibatch_size"],
+    unroll_simulation=config["SNN"]["unroll_simulation"],
+) as sim:
+    sim.compile(
+        loss=tf.losses.SparseCategoricalCrossentropy(from_logits=True),
+        optimizer=tf.optimizers.Adam(),
+        metrics=["accuracy"],
+    )
 
-#Step 5 - Test
+    if config["SNN_trainer"]["get_initial_testing_accuracy"]:
+        logger.info(
+            "Initial test accuracy: %.2f%%"
+            % (sim.evaluate(test_data, test_labels, verbose=1)["probe_accuracy"] * 100)
+        )
+    # Step 3 - Train CNN + LMU
+    if config["SNN_trainer"]["do_SNN_training"]:
+        history = sim.fit(
+            train_data, train_labels, epochs=config["SNN_trainer"]["epochs"]
+        )
+        logger.info("training parameters")
+        logger.info(history.params)
+        logger.info("training results")
+        logger.info(history.history)
+        # save the parameters to file
+        sim.save_params(config["pickle_locations"]["SNN_weights"])
+    else:
+        sim.load_params(config["pickle_locations"]["SNN_weights"])
+
+    # Step 4 - Test
+    logger.info(
+        "test accuracy: %.2f%%"
+        % (sim.evaluate(test_data, test_labels, verbose=1)["probe_accuracy"] * 100)
+    )

@@ -1,47 +1,95 @@
-from torchvision import transforms
+# Dataloader code taken from https://github.com/HHTseng/video-classification/blob/master/ResNetCRNN/UCF101_ResNetCRNN.py
+import os
+import pickle
+
+import numpy as np
 import torch
-from utils import get_args
-from dataset import ucf101
+import torch.utils.data as data
+import torchvision.transforms as transforms
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 
-args = get_args()
-#Get data
-#data_folder= "./ucf_data/"
-data_folder="/home/justin/data/UCF101/"
-transforms =  transforms.Compose([
-    transforms.ToPILImage(),
-    transforms.RandomResizedCrop(224),
-    transforms.ToTensor(),
-    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
- ])
-ucf101_trainset = ucf101(root=data_folder + 'videos', annotation_path=data_folder+'ucfTrainTestlist/', frames_per_clip=1, train=True, transform=transforms, num_workers=args.workers)
-ucf101_testset = ucf101(root=data_folder + 'videos', annotation_path=data_folder+'ucfTrainTestlist/', frames_per_clip=1, train=False, transform=None, num_workers=args.workers)
+from functions import Dataset_CRNN, labels2cat
+from parse_config import ConfigParser
+
+# training parameters
+res_size = 224  # ResNet image size
+begin_frame, end_frame, skip_frame = 1, 29, 1
 
 
-#Very it works
-def verify_dataset(dataset):
-    if len(dataset.samples) == 0 or len(dataset.classes) <= 1 or len(dataset.indices) == 0:
-        raise RuntimeError("Data set up incorrectly!")
-verify_dataset(ucf101_testset)
-verify_dataset(ucf101_trainset)
+def get_dataloaders(config):
+    data_path = config["data_path"]
+    # Select which frame to begin & end in videos
+    params = (
+        {
+            "batch_size": config["dataloader"]["batch_size"],
+            "shuffle": config["dataloader"]["shuffle"],
+            "num_workers": config["dataloader"]["workers"],
+            "pin_memory": config["dataloader"]["pin_memory"],
+        }
+        if config["use_cuda"]
+        else {}
+    )
 
-def get_classes():
-    train_classes = ucf101_trainset.classes
-    test_classes = ucf101_testset.classes
-    return train_classes, test_classes
+    # load UCF101 actions names
+    with open(config["pickle_locations"]["action_names"], "rb") as f:
+        action_names = pickle.load(f)
 
-#Create data loaders
-def create_dataloaders(batch_size=32):
-    train_loader = torch.utils.data.DataLoader(
-                     dataset=ucf101_trainset,
-                     batch_size=batch_size,
-                     shuffle=False)
+    # convert labels -> category
+    le = LabelEncoder()
+    le.fit(action_names)
 
-    test_loader = torch.utils.data.DataLoader(
-                    dataset=ucf101_testset,
-                    batch_size=batch_size,
-                    shuffle=False)
-    return train_loader, test_loader
+    # show how many classes there are
+    list(le.classes_)
 
-def get_image_size():
-    image_size = ucf101_trainset[0][0][0][0,:,:].shape
-    return image_size
+    # convert category -> 1-hot
+    action_category = le.transform(action_names).reshape(-1, 1)
+    enc = OneHotEncoder()
+    enc.fit(action_category)
+
+    actions = []
+    fnames = os.listdir(data_path)
+
+    all_names = []
+    for f in fnames:
+        loc1 = f.find("v_")
+        loc2 = f.find("_g")
+        actions.append(f[(loc1 + 2) : loc2])
+
+        all_names.append(f)
+
+    # list all data files
+    all_X_list = all_names  # all video file names
+    all_y_list = labels2cat(le, actions)  # all video labels
+
+    # train, test split
+
+    train_list, test_list, train_label, test_label = train_test_split(
+        all_X_list,
+        all_y_list,
+        test_size=config["dataloader"]["test_percent_size"],
+        random_state=config["seed"],
+    )
+
+    transform = transforms.Compose(
+        [
+            transforms.Resize([res_size, res_size]),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        ]
+    )
+
+    selected_frames = np.arange(begin_frame, end_frame, skip_frame).tolist()
+
+    train_set, valid_set = (
+        Dataset_CRNN(
+            data_path, train_list, train_label, selected_frames, transform=transform
+        ),
+        Dataset_CRNN(
+            data_path, test_list, test_label, selected_frames, transform=transform
+        ),
+    )
+
+    train_loader = data.DataLoader(train_set, **params)
+    valid_loader = data.DataLoader(valid_set, **params)
+    return train_loader, valid_loader

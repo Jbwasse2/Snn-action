@@ -1,0 +1,33 @@
+{
+    "name": "action_recognition",
+    "seed": 0,
+    "data_path" : "./data/UCF101",
+    "use_cuda" : true,
+    "save_dir" : "./save/",
+    "dataloader": {
+        "shuffle" : true,
+        "pin_memory" : true,
+        "batch_size" : 32,
+        "workers" : 0,
+        "test_percent_size" : 0.15
+    },
+    "pickle_locations": {
+        "CNN_weights" : "./var_data/cnn_encoder_epoch63_singleGPU.pth",
+        "SNN_weights" : "./var_data/snn_params",
+        "action_names" : "./var_data/UCF101actions.pkl",
+        "train_data": "./var_data/train_data.pickle",
+        "test_data": "./var_data/test_data.pickle",
+        "train_labels" : "./var_data/train_labels.pickle",
+        "test_labels" : "./var_data/test_labels.pickle"
+    },
+    "SNN": {
+        "minibatch_size": 100,
+        "unroll_simulation" : 14
+    },
+    "SNN_trainer": {
+        "epochs": 1,
+        "import_CNN_forward_data" : true,
+        "get_initial_testing_accuracy": false,
+        "do_SNN_training" : true
+    }
+}

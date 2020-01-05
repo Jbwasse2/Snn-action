@@ -134,3 +134,9 @@ dmypy.json
 ucf_data/
 *.sw
 *.sw*
+video-classification
+*.pt
+var_data/*
+data/*
+save/*
+
