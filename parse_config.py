@@ -25,7 +25,7 @@ class ConfigParser:
         self.resume = resume
 
         # set save_dir where trained model and log will be saved.
-        save_dir = Path(self.config["trainer"]["save_dir"])
+        save_dir = Path(self.config["save_dir"])
 
         exper_name = self.config["name"]
         if run_id is None:  # use timestamp as default run-id
@@ -57,9 +57,6 @@ class ConfigParser:
 
         if args.device is not None:
             os.environ["CUDA_VISIBLE_DEVICES"] = args.device
-        if args.resume is not None:
-            resume = Path(args.resume)
-            cfg_fname = resume.parent / "config.json"
         else:
             msg_no_cfg = "Configuration file need to be specified. Add '-c config.json', for example."
             assert args.config is not None, msg_no_cfg

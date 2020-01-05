@@ -71,8 +71,8 @@ class LMUCell(nengo.Network):
 
 
 # Create SNN
-def build_SNN(image_size, args):
-    with nengo.Network(seed=args.seed) as net:
+def build_SNN(image_size, config):
+    with nengo.Network(seed=config["seed"]) as net:
         # remove some unnecessary features to speed up the training
         nengo_dl.configure_settings(
             trainable=True, stateful=True, keep_history=True,

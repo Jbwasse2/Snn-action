@@ -138,3 +138,4 @@ video-classification
 *.pt
 var_data/*
 data/*
+save/*

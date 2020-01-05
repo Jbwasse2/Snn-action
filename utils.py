@@ -8,13 +8,13 @@ import torch
 from tqdm import tqdm
 
 
-def setup(args):
-    use_cuda = not args.no_cuda and torch.cuda.is_available()
+def setup(config):
+    use_cuda = config["use_cuda"] and torch.cuda.is_available()
 
-    tf.random.set_seed(args.seed)
-    np.random.seed(args.seed)
-    rng = np.random.RandomState(args.seed)
-    torch.manual_seed(args.seed)
+    tf.random.set_seed(config["seed"])
+    np.random.seed(config["seed"])
+    rng = np.random.RandomState(config["seed"])
+    torch.manual_seed(config["seed"])
 
     device = torch.device("cuda" if use_cuda else "cpu")
 
