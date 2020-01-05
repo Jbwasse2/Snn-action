@@ -165,9 +165,6 @@ def CRNN_final_prediction(model, device, loader):
             ]  # location of max log-probability as prediction
             all_y_pred.extend(y_pred.cpu().data.squeeze().numpy().tolist())
             print(y.tolist(), y_pred.tolist())
-            import pudb
-
-            pu.db
 
     return all_y_pred
 
