@@ -13,7 +13,7 @@
     },
     "pickle_locations": {
         "CNN_weights" : "./var_data/cnn_encoder_epoch63_singleGPU.pth",
-        "SNN_weights" : "./var_data/snn_params.npz",
+        "SNN_weights" : "./var_data/snn_params",
         "action_names" : "./var_data/UCF101actions.pkl",
         "train_data": "./var_data/train_data.pickle",
         "test_data": "./var_data/test_data.pickle",
@@ -25,8 +25,9 @@
         "unroll_simulation" : 14
     },
     "SNN_trainer": {
-        "epochs": 5,
+        "epochs": 1,
         "import_CNN_forward_data" : true,
+        "get_initial_testing_accuracy": false,
         "do_SNN_training" : true
     }
 }

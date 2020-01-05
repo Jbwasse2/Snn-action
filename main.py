@@ -10,6 +10,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torch.optim.lr_scheduler import StepLR
+import logging
 from torchvision import datasets, transforms
 
 from dataloader import get_dataloaders
@@ -17,6 +18,9 @@ from functions import DecoderRNN, ResCNNEncoder
 from network import build_SNN
 from parse_config import ConfigParser
 from utils import dataloader_to_np_array, setup
+
+logger = logging.getLogger(__name__)
+
 
 args = argparse.ArgumentParser(description="Action Recognition")
 args.add_argument(
@@ -44,11 +48,11 @@ CNN = CNN.to(device)
 CNN.eval()
 
 
-train_loader, valid_loader = get_dataloaders(config)
 # Step 2 - Attach LMU to CNN
 if not config["SNN_trainer"]["import_CNN_forward_data"]:
     # Forward pass data through CNN
     # Nengo expects data in the form of a giant numpy array of data.
+    train_loader, valid_loader = get_dataloaders(config)
     train_data, train_labels = dataloader_to_np_array(CNN, device, train_loader)
     test_data, test_labels = dataloader_to_np_array(CNN, device, valid_loader)
 else:
@@ -76,20 +80,27 @@ with nengo_dl.Simulator(
         metrics=["accuracy"],
     )
 
-    print(
-        "Initial test accuracy: %.2f%%"
-        % (sim.evaluate(test_data, test_labels, verbose=1)["probe_accuracy"] * 100)
-    )
+    if config["SNN_trainer"]["get_initial_testing_accuracy"]:
+        logger.info(
+            "Initial test accuracy: %.2f%%"
+            % (sim.evaluate(test_data, test_labels, verbose=1)["probe_accuracy"] * 100)
+        )
     # Step 3 - Train CNN + LMU
     if config["SNN_trainer"]["do_SNN_training"]:
-        sim.fit(train_data, train_labels, epochs=config["SNN_trainer"]["epochs"])
+        history = sim.fit(
+            train_data, train_labels, epochs=config["SNN_trainer"]["epochs"]
+        )
+        logger.info("training parameters")
+        logger.info(history.params)
+        logger.info("training results")
+        logger.info(history.history)
         # save the parameters to file
         sim.save_params(config["pickle_locations"]["SNN_weights"])
     else:
         sim.load_params(config["pickle_locations"]["SNN_weights"])
 
     # Step 4 - Test
-    print(
+    logger.info(
         "test accuracy: %.2f%%"
         % (sim.evaluate(test_data, test_labels, verbose=1)["probe_accuracy"] * 100)
     )
