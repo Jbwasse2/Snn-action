@@ -1,4 +1,5 @@
 import argparse
+import logging
 import pickle
 from configparser import ConfigParser
 
@@ -9,7 +10,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torch.optim.lr_scheduler import StepLR
-import logging
 from torchvision import datasets, transforms
 
 from dataloader import get_dataloaders
@@ -40,11 +40,29 @@ args.add_argument(
 config = ConfigParser.from_args(args)
 device = setup(config)
 # Step 1 - Get Pre-trained CNN
+# This is only needed if any of the config settings actually require this
+# Because this was trained on a gpu, this seems to only work with a gpu also
 # EncoderCNN architecture - Don't change architecture, it wont work.
-CNN = ResCNNEncoder().to(device)
-CNN.load_state_dict(torch.load(config["pickle_locations"]["CNN_weights"]))
-CNN = CNN.to(device)
-CNN.eval()
+
+
+class HardwareError(Exception):
+    """Exception raised when attempting to run this software on a machine without gpu enabled"""
+
+    def __init__(self, message):
+        self.message = message
+
+
+if not config["use_cuda"] and not config["SNN_trainer"]["import_CNN_forward_data"]:
+    raise HardwareError(
+        "Loading of the CNN is supported only for GPU, disable use of the CNN"
+    )
+
+
+if config["use_cuda"]:
+    CNN = ResCNNEncoder().to(device)
+    CNN.load_state_dict(torch.load(config["pickle_locations"]["CNN_weights"]))
+    CNN = CNN.to(device)
+    CNN.eval()
 
 
 # Step 2 - Attach LMU to CNN
