@@ -36,17 +36,17 @@ class LMUCell(nengo.Network):
             # create objects corresponding to the x/u/m/h variables in the above diagram
             #            self.x = nengo.Node(size_in=input_d)
             self.x = nengo.networks.EnsembleArray(
-                n_neurons=100,
+                n_neurons=10,
                 n_ensembles=input_d,
                 neuron_type=nengo.SpikingRectifiedLinear(),
             )
             # elelf.u = nengo.Node(size_in=1)
             self.u = nengo.networks.EnsembleArray(
-                n_neurons=100, n_ensembles=1, neuron_type=nengo.SpikingRectifiedLinear()
+                n_neurons=10, n_ensembles=1, neuron_type=nengo.SpikingRectifiedLinear()
             )
             # self.m = nengo.Node(size_in=order)
             self.m = nengo.networks.EnsembleArray(
-                n_neurons=100,
+                n_neurons=10,
                 n_ensembles=order,
                 neuron_type=nengo.SpikingRectifiedLinear(),
             )
@@ -75,11 +75,11 @@ class LMUCell(nengo.Network):
             conn_A = nengo.Connection(
                 self.m.output, self.m.output, transform=A, synapse=0
             )
-            self.config[conn_A].trainable = False
+            self.config[conn_A].trainable = True
             conn_B = nengo.Connection(
                 self.u.output, self.m.output, transform=B, synapse=None
             )
-            self.config[conn_B].trainable = False
+            self.config[conn_B].trainable = True
 
             # compute h_t
             nengo.Connection(
@@ -103,9 +103,7 @@ class LMUCell(nengo.Network):
 def build_SNN(image_size, config):
     with nengo.Network(seed=config["seed"]) as net:
         # remove some unnecessary features to speed up the training
-        nengo_dl.configure_settings(
-            trainable=True, stateful=True, keep_history=True,
-        )
+        nengo_dl.configure_settings(stateful=False)
 
         # input node
         inp = nengo.Node(np.zeros(image_size[-1]))
@@ -113,7 +111,7 @@ def build_SNN(image_size, config):
         # lmu cell
         lmu = LMUCell(units=212, order=256, theta=image_size[1], input_d=image_size[-1])
         conn = nengo.Connection(inp, lmu.x.output, synapse=None)
-        net.config[conn].trainable = False
+        #        net.config[conn].trainable = True
 
         # dense linear readout
         out = nengo.Node(size_in=101)

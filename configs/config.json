@@ -7,8 +7,8 @@
     "dataloader": {
         "shuffle" : true,
         "pin_memory" : true,
-        "batch_size" : 0,
-        "workers" : 32,
+        "batch_size" : 32,
+        "workers" : 0,
         "test_percent_size" : 0.15
     },
     "pickle_locations": {
@@ -22,7 +22,7 @@
     },
     "SNN": {
         "minibatch_size": 100,
-        "unroll_simulation" : 14
+        "unroll_simulation" : 28
     },
     "SNN_trainer": {
         "epochs": 15,
