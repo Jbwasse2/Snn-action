@@ -1,3 +1,5 @@
+from collections import deque
+
 import matplotlib.pyplot as plt
 import nengo
 import nengo_dl
@@ -32,9 +34,22 @@ class LMUCell(nengo.Network):
             nengo_dl.configure_settings(trainable=None)
 
             # create objects corresponding to the x/u/m/h variables in the above diagram
-            self.x = nengo.Node(size_in=input_d)
-            self.u = nengo.Node(size_in=1)
-            self.m = nengo.Node(size_in=order)
+            #            self.x = nengo.Node(size_in=input_d)
+            self.x = nengo.networks.EnsembleArray(
+                n_neurons=10,
+                n_ensembles=input_d,
+                neuron_type=nengo.SpikingRectifiedLinear(),
+            )
+            # elelf.u = nengo.Node(size_in=1)
+            self.u = nengo.networks.EnsembleArray(
+                n_neurons=10, n_ensembles=1, neuron_type=nengo.SpikingRectifiedLinear()
+            )
+            # self.m = nengo.Node(size_in=order)
+            self.m = nengo.networks.EnsembleArray(
+                n_neurons=10,
+                n_ensembles=order,
+                neuron_type=nengo.SpikingRectifiedLinear(),
+            )
             self.h = nengo_dl.TensorNode(tf.nn.tanh, shape_in=(units,), pass_time=False)
 
             # compute u_t from the above diagram.
@@ -42,28 +57,42 @@ class LMUCell(nengo.Network):
             # delay, so we can think of any connections with synapse=0 as representing
             # value_{t-1}
             nengo.Connection(
-                self.x, self.u, transform=np.ones((1, input_d)), synapse=None
+                self.x.output,
+                self.u.output,
+                transform=np.ones((1, input_d)),
+                synapse=None,
             )
-            nengo.Connection(self.h, self.u, transform=np.zeros((1, units)), synapse=0)
-            nengo.Connection(self.m, self.u, transform=np.zeros((1, order)), synapse=0)
+            nengo.Connection(
+                self.h, self.u.output, transform=np.zeros((1, units)), synapse=0
+            )
+            nengo.Connection(
+                self.m.output, self.u.output, transform=np.zeros((1, order)), synapse=0
+            )
 
             # compute m_t
             # in this implementation we'll make A and B non-trainable, but they
             # could also be optimized in the same way as the other parameters
-            conn_A = nengo.Connection(self.m, self.m, transform=A, synapse=0)
-            self.config[conn_A].trainable = False
-            conn_B = nengo.Connection(self.u, self.m, transform=B, synapse=None)
-            self.config[conn_B].trainable = False
+            conn_A = nengo.Connection(
+                self.m.output, self.m.output, transform=A, synapse=0
+            )
+            self.config[conn_A].trainable = True
+            conn_B = nengo.Connection(
+                self.u.output, self.m.output, transform=B, synapse=None
+            )
+            self.config[conn_B].trainable = True
 
             # compute h_t
             nengo.Connection(
-                self.x, self.h, transform=np.zeros((units, input_d)), synapse=None
+                self.x.output,
+                self.h,
+                transform=np.zeros((units, input_d)),
+                synapse=None,
             )
             nengo.Connection(
                 self.h, self.h, transform=np.zeros((units, units)), synapse=0
             )
             nengo.Connection(
-                self.m,
+                self.m.output,
                 self.h,
                 transform=nengo_dl.dists.Glorot(distribution="normal"),
                 synapse=None,
@@ -74,17 +103,15 @@ class LMUCell(nengo.Network):
 def build_SNN(image_size, config):
     with nengo.Network(seed=config["seed"]) as net:
         # remove some unnecessary features to speed up the training
-        nengo_dl.configure_settings(
-            trainable=True, stateful=True, keep_history=True,
-        )
+        nengo_dl.configure_settings(stateful=False)
 
         # input node
         inp = nengo.Node(np.zeros(image_size[-1]))
 
         # lmu cell
-        lmu = LMUCell(units=212, order=252, theta=image_size[1], input_d=image_size[-1])
-        conn = nengo.Connection(inp, lmu.x, synapse=None)
-        net.config[conn].trainable = False
+        lmu = LMUCell(units=212, order=500, theta=image_size[1], input_d=image_size[-1])
+        conn = nengo.Connection(inp, lmu.x.output, synapse=None)
+        #        net.config[conn].trainable = True
 
         # dense linear readout
         out = nengo.Node(size_in=101)
