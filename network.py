@@ -109,7 +109,7 @@ def build_SNN(image_size, config):
         inp = nengo.Node(np.zeros(image_size[-1]))
 
         # lmu cell
-        lmu = LMUCell(units=212, order=256, theta=image_size[1], input_d=image_size[-1])
+        lmu = LMUCell(units=3500, order=2, theta=image_size[1], input_d=image_size[-1])
         conn = nengo.Connection(inp, lmu.x.output, synapse=None)
         #        net.config[conn].trainable = True
 

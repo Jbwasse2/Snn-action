@@ -13,7 +13,7 @@ from functions import Dataset_CRNN, labels2cat
 from parse_config import ConfigParser
 
 # training parameters
-res_size = 224  # ResNet image size
+res_size = 40  # ResNet image size
 begin_frame, end_frame, skip_frame = 1, 29, 1
 
 

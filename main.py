@@ -16,7 +16,7 @@ from dataloader import get_dataloaders
 from functions import DecoderRNN, ResCNNEncoder
 from network import build_SNN
 from parse_config import ConfigParser
-from utils import dataloader_to_np_array, setup
+from utils import dataloader_to_np_array, setup, dataloader_to_np_array_raw
 
 logger = logging.getLogger(__name__)
 
@@ -70,8 +70,17 @@ if not config["SNN_trainer"]["import_CNN_forward_data"]:
     # Forward pass data through CNN
     # Nengo expects data in the form of a giant numpy array of data.
     train_loader, valid_loader = get_dataloaders(config)
-    train_data, train_labels = dataloader_to_np_array(CNN, device, train_loader)
-    test_data, test_labels = dataloader_to_np_array(CNN, device, valid_loader)
+    train_data, train_labels = dataloader_to_np_array_raw(device, train_loader)
+    test_data, test_labels = dataloader_to_np_array_raw(device, valid_loader)
+
+    def save_pickle(filename, var):
+        with open(filename, "wb") as f:
+            pickle.dump(var, f, protocol=4)
+
+    save_pickle(config["pickle_locations"]["train_data"], train_data)
+    save_pickle(config["pickle_locations"]["test_data"], test_data)
+    save_pickle(config["pickle_locations"]["train_labels"], train_labels)
+    save_pickle(config["pickle_locations"]["test_labels"], test_labels)
 else:
     # Load data in that was outputted from CNN (This is fast)
     def load_pickle(filename):
@@ -84,6 +93,15 @@ else:
     train_labels = load_pickle(config["pickle_locations"]["train_labels"])
     test_labels = load_pickle(config["pickle_locations"]["test_labels"])
 
+import numpy as np
+
+train_data = np.reshape(
+    train_data,
+    (train_data.shape[0], train_data.shape[1], np.prod(train_data.shape[2:])),
+)
+test_data = np.reshape(
+    test_data, (test_data.shape[0], test_data.shape[1], np.prod(test_data.shape[2:]))
+)
 SNN = build_SNN(train_data.shape, config)
 
 with nengo_dl.Simulator(
@@ -104,15 +122,21 @@ with nengo_dl.Simulator(
         )
     # Step 3 - Train CNN + LMU
     if config["SNN_trainer"]["do_SNN_training"]:
-        history = sim.fit(
-            train_data, train_labels, epochs=config["SNN_trainer"]["epochs"]
-        )
-        logger.info("training parameters")
-        logger.info(history.params)
-        logger.info("training results")
-        logger.info(history.history)
-        # save the parameters to file
-        sim.save_params(config["pickle_locations"]["SNN_weights"])
+        for i in range(config["SNN_trainer"]["epochs"]):
+            history = sim.fit(train_data, train_labels, epochs=1)
+            logger.info("training parameters")
+            logger.info(history.params)
+            logger.info("training results")
+            logger.info(history.history)
+            # save the parameters to file
+            logger.info(
+                "test accuracy: %.2f%%"
+                % (
+                    sim.evaluate(test_data, test_labels, verbose=1)["probe_accuracy"]
+                    * 100
+                )
+            )
+    #        sim.save_params(config["pickle_locations"]["SNN_weights"])
     else:
         sim.load_params(config["pickle_locations"]["SNN_weights"])
 

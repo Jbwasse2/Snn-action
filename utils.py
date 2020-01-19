@@ -21,6 +21,21 @@ def setup(config):
     return device
 
 
+def dataloader_to_np_array_raw(device, loader):
+    feature_space = []
+    labels = []
+    with torch.no_grad():
+        for batch_idx, (X, y) in enumerate(tqdm(loader)):
+            # distribute data to device
+            feature_space.extend(X.cpu().data.squeeze().numpy().tolist())
+            labels.extend(y.cpu().data.squeeze().numpy().tolist())
+    # Convert lists into np.arrays of shape (len(data), time, data)
+    labels_np = np.array(labels)
+    labels_np = np.tile(labels_np[:, None, None], (1, 28, 1))
+    feature_space_np = np.array(feature_space)
+    return feature_space_np, labels_np
+
+
 def dataloader_to_np_array(cnn_encoder, device, loader):
     feature_space = []
     labels = []
