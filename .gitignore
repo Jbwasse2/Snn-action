@@ -140,3 +140,7 @@ var_data/*
 data/*
 save/*
 
+*.tmp
+PyTorch-MFNet/
+models/
+var_databk/
