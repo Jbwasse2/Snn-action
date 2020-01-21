@@ -82,7 +82,7 @@ def build_SNN(image_size, config):
         inp = nengo.Node(np.zeros(image_size[-1]))
 
         # lmu cell
-        lmu = LMUCell(units=212, order=252, theta=image_size[1], input_d=image_size[-1])
+        lmu = LMUCell(units=800, order=2, theta=image_size[1], input_d=image_size[-1])
         conn = nengo.Connection(inp, lmu.x, synapse=None)
         net.config[conn].trainable = False
 

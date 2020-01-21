@@ -18,8 +18,6 @@ from network import build_SNN
 from parse_config import ConfigParser
 from utils import dataloader_to_np_array, setup
 
-logger = logging.getLogger(__name__)
-
 
 args = argparse.ArgumentParser(description="Action Recognition")
 args.add_argument(
@@ -38,6 +36,7 @@ args.add_argument(
 )
 
 config = ConfigParser.from_args(args)
+logger = config.get_logger(__name__, 0)
 device = setup(config)
 # Step 1 - Get Pre-trained CNN
 # EncoderCNN architecture - Don't change architecture, it wont work.
@@ -54,6 +53,15 @@ if not config["SNN_trainer"]["import_CNN_forward_data"]:
     train_loader, valid_loader = get_dataloaders(config)
     train_data, train_labels = dataloader_to_np_array(CNN, device, train_loader)
     test_data, test_labels = dataloader_to_np_array(CNN, device, valid_loader)
+
+    def save_pickle(filename, var):
+        with open(filename, "wb") as f:
+            pickle.dump(var, f)
+
+    save_pickle(config["pickle_locations"]["train_data"], train_data)
+    save_pickle(config["pickle_locations"]["test_data"], test_data)
+    save_pickle(config["pickle_locations"]["train_labels"], train_labels)
+    save_pickle(config["pickle_locations"]["test_labels"], test_labels)
 else:
     # Load data in that was outputted from CNN (This is fast)
     def load_pickle(filename):
@@ -80,26 +88,36 @@ with nengo_dl.Simulator(
     )
 
     if config["SNN_trainer"]["get_initial_testing_accuracy"]:
-        logger.info(
+        logger.debug(
             "Initial test accuracy: %.2f%%"
             % (sim.evaluate(test_data, test_labels, verbose=1)["probe_accuracy"] * 100)
         )
-    # Step 3 - Train CNN + LMU
+        # Step 3 - Train CNN + LMU
+    test_accs = []
+    train_accs = []
     if config["SNN_trainer"]["do_SNN_training"]:
-        history = sim.fit(
-            train_data, train_labels, epochs=config["SNN_trainer"]["epochs"]
-        )
-        logger.info("training parameters")
-        logger.info(history.params)
-        logger.info("training results")
-        logger.info(history.history)
-        # save the parameters to file
-        sim.save_params(config["pickle_locations"]["SNN_weights"])
+        for i in range(config["SNN_trainer"]["epochs"]):
+            history = sim.fit(train_data, train_labels, epochs=1)
+            import pudb
+
+            pu.db
+            logger.debug("training parameters")
+            logger.debug(history.params)
+            logger.debug("training results")
+            logger.debug(history.history)
+            train_accs.append(history.history["probe_accuracy"])
+            # save the parameters to file
+            test_acc = (
+                sim.evaluate(test_data, test_labels, verbose=1)["probe_accuracy"] * 100
+            )
+            logger.debug("test accuracy: %.2f%%" % (test_acc))
+            test_accs.append(test_acc)
+            sim.save_params(config["pickle_locations"]["SNN_weights"])
     else:
         sim.load_params(config["pickle_locations"]["SNN_weights"])
-
+    final_test = sim.evaluate(test_data, test_labels, verbose=1)["probe_accuracy"] * 100
     # Step 4 - Test
-    logger.info(
-        "test accuracy: %.2f%%"
-        % (sim.evaluate(test_data, test_labels, verbose=1)["probe_accuracy"] * 100)
-    )
+    logger.debug("test accuracy: %.2f%%" % (final_test))
+    test_accs.append(final_test)
+    print("Trianing", train_accs)
+    print("Testing", test_accs)
