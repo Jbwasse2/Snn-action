@@ -14,7 +14,7 @@ from torchvision import datasets, transforms
 
 from dataloader import get_dataloaders
 from functions import DecoderRNN, ResCNNEncoder
-from network import build_SNN
+from network import build_SNN, build_SNN_simple
 from parse_config import ConfigParser
 from utils import dataloader_to_np_array, setup
 
@@ -58,19 +58,21 @@ if not config["use_cuda"] and not config["SNN_trainer"]["import_CNN_forward_data
 
 
 if config["use_cuda"]:
-    CNN = ResCNNEncoder().to(device)
-    CNN.load_state_dict(torch.load(config["pickle_locations"]["CNN_weights"]))
-    CNN = CNN.to(device)
-    CNN.eval()
+    pass
+#    CNN = ResCNNEncoder().to(device)
+#    CNN.load_state_dict(torch.load(config["pickle_locations"]["CNN_weights"]))
+#    CNN = CNN.to(device)
+#    CNN.eval()
 
 
 # Step 2 - Attach LMU to CNN
 if not config["SNN_trainer"]["import_CNN_forward_data"]:
     # Forward pass data through CNN
     # Nengo expects data in the form of a giant numpy array of data.
-    train_loader, valid_loader = get_dataloaders(config)
+    train_loader = get_dataloaders(config, "train")
+    test_loader = get_dataloaders(config, "test")
     train_data, train_labels = dataloader_to_np_array(CNN, device, train_loader)
-    test_data, test_labels = dataloader_to_np_array(CNN, device, valid_loader)
+    test_data, test_labels = dataloader_to_np_array(CNN, device, test_loader)
 
     def save_pickle(filename, var):
         with open(filename, "wb") as f:
@@ -92,12 +94,13 @@ else:
     train_labels = load_pickle(config["pickle_locations"]["train_labels"])
     test_labels = load_pickle(config["pickle_locations"]["test_labels"])
 
-SNN = build_SNN(train_data.shape, config)
+SNN = build_SNN_simple(train_data.shape, config)
 
 with nengo_dl.Simulator(
     SNN,
     minibatch_size=config["SNN"]["minibatch_size"],
     unroll_simulation=config["SNN"]["unroll_simulation"],
+    device="/gpu:1",
 ) as sim:
     sim.compile(
         loss=tf.losses.SparseCategoricalCrossentropy(from_logits=True),
@@ -115,12 +118,10 @@ with nengo_dl.Simulator(
     train_accs = []
     if config["SNN_trainer"]["do_SNN_training"]:
         for i in range(config["SNN_trainer"]["epochs"]):
+            print(i)
             history = sim.fit(train_data, train_labels, epochs=1)
-            import pudb
-
-            pu.db
             logger.debug("training parameters")
-            logger.debug(history.params)
+            logger.info(history.params)
             logger.debug("training results")
             logger.debug(history.history)
             train_accs.append(history.history["probe_accuracy"])
@@ -130,7 +131,7 @@ with nengo_dl.Simulator(
             )
             logger.debug("test accuracy: %.2f%%" % (test_acc))
             test_accs.append(test_acc)
-            sim.save_params(config["pickle_locations"]["SNN_weights"])
+        sim.save_params(config["pickle_locations"]["SNN_weights"])
     else:
         sim.load_params(config["pickle_locations"]["SNN_weights"])
     final_test = sim.evaluate(test_data, test_labels, verbose=1)["probe_accuracy"] * 100
@@ -139,3 +140,5 @@ with nengo_dl.Simulator(
     test_accs.append(final_test)
     logger.debug("Training", train_accs)
     logger.debug("Testing", test_accs)
+    print("Training", train_accs)
+    print("Testing", test_accs)
