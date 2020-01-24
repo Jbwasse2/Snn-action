@@ -99,7 +99,7 @@ SNN = build_SNN_simple(train_data.shape, config)
 with nengo_dl.Simulator(
     SNN,
     minibatch_size=config["SNN"]["minibatch_size"],
-    unroll_simulation=config["SNN"]["unroll_simulation"],
+    unroll_simulation=1,
     device="/gpu:1",
 ) as sim:
     sim.compile(
