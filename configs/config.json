@@ -21,10 +21,10 @@
         "test_labels" : "./var_data/ucf/test_labels_split1.pickle"
     },
     "SNN": {
-        "minibatch_size": 32,
+        "minibatch_size": 32
     },
     "SNN_trainer": {
-        "epochs": 15,
+        "epochs": 30,
         "import_CNN_forward_data" : true,
         "get_initial_testing_accuracy": false,
         "do_SNN_training" : true
