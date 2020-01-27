@@ -56,13 +56,12 @@ if not config["use_cuda"] and not config["SNN_trainer"]["import_CNN_forward_data
         "Loading of the CNN is supported only for GPU, disable use of the CNN"
     )
 
-
-if config["use_cuda"]:
-    pass
-#    CNN = ResCNNEncoder().to(device)
-#    CNN.load_state_dict(torch.load(config["pickle_locations"]["CNN_weights"]))
-#    CNN = CNN.to(device)
-#    CNN.eval()
+# To save gpu memory, only load CNN if its needed
+if config["use_cuda"] and not config["SNN_trainer"]["import_CNN_forward_data"]:
+    CNN = ResCNNEncoder().to(device)
+    CNN.load_state_dict(torch.load(config["pickle_locations"]["CNN_weights"]))
+    CNN = CNN.to(device)
+    CNN.eval()
 
 
 # Step 2 - Attach LMU to CNN

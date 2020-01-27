@@ -51,7 +51,7 @@ Documentation for nengo and nengo_dl can be found on their [website](https://www
 
 # UCF101
 
-This data set was acquired from labeling and cutting YouTube videos into 30 frame clips. There are 101 possible actions that each video can be labeled. This raw, split data set can be downloaded [here](TODO).
+This data set was acquired from labeling and cutting YouTube videos into 30 frame clips. There are 101 possible actions that each video can be labeled. This raw, split data set can be downloaded [here](https://drive.google.com/open?id=1j0EKt_DeyDfyrk0HjAhSTurMdeoO8KWL).
 
 # Results
 Since the UCF101 data set has clips from the same videos, it is useful to use the data set splits that are given. In the following results split 1 is used.
