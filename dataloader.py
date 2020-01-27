@@ -17,8 +17,8 @@ res_size = 224  # ResNet image size
 begin_frame, end_frame, skip_frame = 1, 29, 1
 
 
-def get_dataloaders(config):
-    data_path = config["data_path"]
+def get_dataloaders(config, path):
+    data_path = config["data_path"] + "/" + path
     # Select which frame to begin & end in videos
     params = (
         {
@@ -38,9 +38,6 @@ def get_dataloaders(config):
     # convert labels -> category
     le = LabelEncoder()
     le.fit(action_names)
-
-    # show how many classes there are
-    list(le.classes_)
 
     # convert category -> 1-hot
     action_category = le.transform(action_names).reshape(-1, 1)
@@ -62,15 +59,6 @@ def get_dataloaders(config):
     all_X_list = all_names  # all video file names
     all_y_list = labels2cat(le, actions)  # all video labels
 
-    # train, test split
-
-    train_list, test_list, train_label, test_label = train_test_split(
-        all_X_list,
-        all_y_list,
-        test_size=config["dataloader"]["test_percent_size"],
-        random_state=config["seed"],
-    )
-
     transform = transforms.Compose(
         [
             transforms.Resize([res_size, res_size]),
@@ -81,15 +69,9 @@ def get_dataloaders(config):
 
     selected_frames = np.arange(begin_frame, end_frame, skip_frame).tolist()
 
-    train_set, valid_set = (
-        Dataset_CRNN(
-            data_path, train_list, train_label, selected_frames, transform=transform
-        ),
-        Dataset_CRNN(
-            data_path, test_list, test_label, selected_frames, transform=transform
-        ),
+    dataset = Dataset_CRNN(
+        data_path, all_X_list, all_y_list, selected_frames, transform=transform
     )
 
-    train_loader = data.DataLoader(train_set, **params)
-    valid_loader = data.DataLoader(valid_set, **params)
-    return train_loader, valid_loader
+    dataloader = data.DataLoader(dataset, **params)
+    return dataloader
