@@ -15,6 +15,16 @@ I HIGHLY recommend using a machine with a GPU when running this code. Doing so m
 
 Also available is the data forward passed through the trained CNN. This and the pretrained weights for the CNN for this experiment are given [here](https://drive.google.com/file/d/1LiPBLh0DCQ33Z0730yZ1sRoqlM3h9EFN/view?usp=sharing). Please cite the creators of [UCF101](https://www.crcv.ucf.edu/data/UCF101.php) and [the pretrained weights](https://github.com/HHTseng/video-classification) respectively if you use their data.
 
+To run the code, please do the following  
+```
+python main.py -c path/to/config.json
+```
+Alternatively running
+```
+python main.py
+```
+will use the path "./configs/config.json" as the default.
+
 ## Config.json
 name: Name of project, used in naming directories where the logs are saved.  
 seed: Seed # for this project.  
