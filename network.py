@@ -134,18 +134,34 @@ def build_SNN_simple(image_size, config):
     with nengo.Network(seed=config["seed"]) as net:
         # remove some unnecessary features to speed up the training
         nengo_dl.configure_settings(stateful=False)
-        n_ensembles = 10000
+        n_ensembles = 1000
+        depth = 5
         # input node
 
         inp = nengo.Node(np.zeros(image_size[-1]))  #
-        u = nengo.networks.EnsembleArray(
-            n_neurons=50,
-            n_ensembles=n_ensembles,
-            neuron_type=nengo.SpikingRectifiedLinear(),
-        )
-        nengo.Connection(inp, u.input, transform=np.zeros((n_ensembles, 512)))
         out = nengo.Node(size_in=101)
-        nengo.Connection(u.output, out, transform=nengo_dl.dists.Glorot(), synapse=None)
+        ensembles = []
+        #Create ensembles
+        for i in range(depth):
+            u = nengo.networks.EnsembleArray(
+                n_neurons=50,
+                n_ensembles=n_ensembles,
+                neuron_type=nengo.SpikingRectifiedLinear(),
+            )
+            ensembles.append(u)
+        #Connect middle ensembles
+        for i in range(1,depth-1):
+            ensemble_pre = ensembles[i-1]
+            ensemble_curr = ensembles[i]
+            ensemble_post = ensembles[i+1]
+            nengo.Connection(ensemble_pre.output, ensemble_curr.input)
+            nengo.Connection(ensemble_curr.output, ensemble_post.input)
+        #Connect first ensemble
+        nengo.Connection(inp, ensembles[0].input, transform=np.zeros((n_ensembles, 512)))
+        nengo.Connection(ensembles[0].input, ensembles[1].output)
+        #Connect last ensemble
+        nengo.Connection(ensembles[-1].output, out, transform=nengo_dl.dists.Glorot(), synapse=None)
+        nengo.Connection(ensembles[-2].output, ensembles[-1].input)
         p = nengo.Probe(out)
     return net
 
