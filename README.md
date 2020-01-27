@@ -16,26 +16,26 @@ I HIGHLY recommend using a machine with a GPU when running this code. Doing so m
 Also available is the data forward passed through the trained CNN. This and the pretrained weights for the CNN for this experiment are given [here](https://drive.google.com/file/d/1LiPBLh0DCQ33Z0730yZ1sRoqlM3h9EFN/view?usp=sharing). Please cite the creators of [UCF101](https://www.crcv.ucf.edu/data/UCF101.php) and [the pretrained weights](https://github.com/HHTseng/video-classification) respectively if you use their data.
 
 ## Config.json
-name: Name of project, used in naming directories where the logs are saved.
-seed: Seed # for this project.
-data_path: Location where the RAW data is (if you want to forward pass the data through the CNN).
-use_cuda: Do you want to use your GPU?
-save_dir: Location where logs are saved
+name: Name of project, used in naming directories where the logs are saved.  
+seed: Seed # for this project.  
+data_path: Location where the RAW data is (if you want to forward pass the data through the CNN).  
+use_cuda: Do you want to use your GPU?  
+save_dir: Location where logs are saved  
 
-dataloader: Anything related to how the raw data becomes forward passed through the CNN and given to the SNN.
-shuffle: Will the data be given to the CNN in a random order?
-pin_memory: IDK but Im too scared to change it :)
-batch_size: Batch size for forward passing data through the CNN
+dataloader: Anything related to how the raw data becomes forward passed through the CNN and given to the SNN.  
+shuffle: Will the data be given to the CNN in a random order?  
+pin_memory: IDK but Im too scared to change it :)  
+batch_size: Batch size for forward passing data through the CNN  
 
-pickle_locations: Locations of various pickled data that may be useful for saving you time instead of gathering the data yourself.
+pickle_locations: Locations of various pickled data that may be useful for saving you time instead of gathering the data yourself.  
 
-SNN-minibatch_size: minibatch size for training/testing the SNN
+SNN-minibatch_size: minibatch size for training/testing the SNN  
 
-SNN_trainer: Settings that related to training/testing the SNN
-epochs: Number of epochs to TRAIN for
-import_CNN_forward_data: Where data that was passed through the CNN and pickled loaded in. If false will forward pass and save the data to the pickled locations.
-get_initial_testing_accuracy: Whether the untrained SNN should forward pass the data (mostly used as a sanity check)
-do_SNN_training: Whether the SNN is trained or not. If false will load in the SNN weights.
+SNN_trainer: Settings that related to training/testing the SNN  
+epochs: Number of epochs to TRAIN for  
+import_CNN_forward_data: Where data that was passed through the CNN and pickled loaded in. If false will forward pass and save the data to the pickled locations.  
+get_initial_testing_accuracy: Whether the untrained SNN should forward pass the data (mostly used as a sanity check)  
+do_SNN_training: Whether the SNN is trained or not. If false will load in the SNN weights.  
 
 
 # Architecture
