@@ -21,7 +21,7 @@
         "test_labels" : "./var_data/ucf/test_labels_split1.pickle"
     },
     "SNN": {
-        "minibatch_size": 32
+        "minibatch_size": 100
     },
     "SNN_trainer": {
         "epochs": 30,
