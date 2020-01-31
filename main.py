@@ -9,13 +9,12 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from torch.optim.lr_scheduler import StepLR
-from torchvision import datasets, transforms
-
 from dataloader import get_dataloaders
 from functions import DecoderRNN, ResCNNEncoder
 from network import build_SNN, build_SNN_simple
 from parse_config import ConfigParser
+from torch.optim.lr_scheduler import StepLR
+from torchvision import datasets, transforms
 from utils import dataloader_to_np_array, setup
 
 
@@ -99,7 +98,7 @@ with nengo_dl.Simulator(
     SNN,
     minibatch_size=config["SNN"]["minibatch_size"],
     unroll_simulation=1,
-    device="/gpu:1",
+    device="/gpu:0",
 ) as sim:
     sim.compile(
         loss=tf.losses.SparseCategoricalCrossentropy(from_logits=True),
