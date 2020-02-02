@@ -10,13 +10,19 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from dataloader import get_dataloaders
+from nengo_dl.builder import NengoBuilder, NengoModel
 from functions import DecoderRNN, ResCNNEncoder
 from network import build_SNN, build_SNN_simple
 from parse_config import ConfigParser
 from torch.optim.lr_scheduler import StepLR
 from torchvision import datasets, transforms
+from nengo_dl import utils, config, callbacks
 from utils import dataloader_to_np_array, setup
-
+from nengo_dl.tensor_graph import TensorGraph
+import random
+def write_to_debug(s):
+    with open("debug.txt", "w") as text_file:
+        text_file.write(s)
 
 args = argparse.ArgumentParser(description="Action Recognition")
 args.add_argument(
@@ -114,9 +120,50 @@ with nengo_dl.Simulator(
         # Step 3 - Train CNN + LMU
     test_accs = []
     train_accs = []
+    def setup_network(SNN, device):
+        ProgressBar = utils.ProgressBar 
+        p = ProgressBar("Building network Custom", "Build")
+        sim.model = NengoModel(
+            dt=float(0.001),
+            label="%s, dt=%f" % (SNN, 0.001),
+            builder=NengoBuilder(),
+            fail_fast=False,
+        )
+        sim.model.build(SNN, progress = p)
+        with ProgressBar(
+            "Optimizing graph", "Optimization", max_value=None
+        ) as progress:
+            sim.tensor_graph = TensorGraph(
+                sim.model,
+                sim.dt,
+                1,
+                100,
+                "/gpu:0",
+                progress,
+                0,
+        )
+        sim.graph = tf.Graph()
+        sim._build_keras()
+        sim.compile(
+            loss=tf.losses.SparseCategoricalCrossentropy(from_logits=True),
+            optimizer=tf.optimizers.Adam(),
+            metrics=["accuracy"],
+        )
+
     if config["SNN_trainer"]["do_SNN_training"]:
         for i in range(config["SNN_trainer"]["epochs"]):
-            print(i)
+            #Do dropout
+            connections = SNN.networks[0].conns
+            freeze = random.sample(range(len(connections)),int(len(connections) * 0.5))
+            for counter, neuron_connections in enumerate(list(connections.values())):
+                for connection in neuron_connections:
+                    if counter in freeze:
+                        connection.function = lambda x: 0
+                    else:
+                        connection.function = None
+            setup_network(SNN, device)
+            if i != 0:
+                sim.load_params("./temp_params")
             history = sim.fit(train_data, train_labels, epochs=1)
             logger.debug("training parameters")
             logger.info(history.params)
@@ -129,9 +176,17 @@ with nengo_dl.Simulator(
             )
             logger.debug("test accuracy: %.2f%%" % (test_acc))
             test_accs.append(test_acc)
+            sim.save_params("./temp_params")
+
         sim.save_params(config["pickle_locations"]["SNN_weights"])
     else:
         sim.load_params(config["pickle_locations"]["SNN_weights"])
+    connections = SNN.networks[0].conns
+    for counter, neuron_connections in enumerate(list(connections.values())):
+        for connection in neuron_connections:
+                connection.function = None
+    setup_network(SNN, device)
+    sim.load_params("./temp_params")
     final_test = sim.evaluate(test_data, test_labels, verbose=1)["probe_accuracy"] * 100
     # Step 4 - Test
     logger.debug("test accuracy: %.2f%%" % (final_test))

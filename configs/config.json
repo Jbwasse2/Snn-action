@@ -24,7 +24,7 @@
         "minibatch_size": 100
     },
     "SNN_trainer": {
-        "epochs": 30,
+        "epochs": 2,
         "import_CNN_forward_data" : true,
         "get_initial_testing_accuracy": false,
         "do_SNN_training" : true
