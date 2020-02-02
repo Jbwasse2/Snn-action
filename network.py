@@ -1,6 +1,8 @@
 from collections import deque
 
 import matplotlib.pyplot as plt
+from nengo.utils.numpy import is_iterable
+import random
 import nengo
 import nengo_dl
 import nengo_loihi
@@ -145,63 +147,6 @@ class LMUCellSpike(nengo.Network):
                 synapse=None,
             )
 
-
-def build_SNN_simple(image_size, config):
-    with nengo.Network(seed=config["seed"]) as net:
-        # remove some unnecessary features to speed up the training
-        nengo_dl.configure_settings(stateful=False)
-        n_ensembles = 10000
-        ens_dimension = 1
-        depth = 1
-        # input node
-
-        inp = nengo.Node(np.zeros(image_size[-1]))  #
-        out = nengo.Node(size_in=101)
-        ensembles_in = []
-        ensembles_out = []
-        #Create ensembles
-        for i in range(depth):
-            u1 = nengo.networks.EnsembleArray(
-                n_neurons=1,
-                n_ensembles=n_ensembles,
-                ens_dimensions=ens_dimension,
-                neuron_type=nengo.SpikingRectifiedLinear(),
-            )
-
-            out_u1 = nengo.Node(size_in=500)
-            nengo.Connection(u1.output, out, transform=nengo_dl.dists.Glorot(), synapse=None)
-            nengo.Connection(out_u1, u1.input,transform=nengo_dl.dists.Glorot(), synapse=0)
-            outs = []
-#            for i in range(0,28):
-#                out_storage = nengo.Node(size_in=500)
-#                nengo.Connection(out_u1, out_storage,transform=nengo_dl.dists.Glorot(), synapse=0.001 * i)
-#                nengo.Connection(out_storage, u1.input,transform=nengo_dl.dists.Glorot(), synapse=None)
-#                outs.append(out_storage)
-            ensembles_in.append(u1.input)
-            ensembles_out.append(u1.output)
-        #Connect middle ensembles
-        if depth != 1:
-            for i in range(1,depth-1):
-                curr_in = ensembles_in[i]
-                post_in = ensembles_in[i+1]
-                pre_out = ensembles_out[i-1]
-                curr_out = ensembles_out[i]
-
-                nengo.Connection(pre_out, curr_in)
-                nengo.Connection(curr_out, post_in)
-            #Connect first ensemble
-            nengo.Connection(inp, ensembles_in[0], transform=nengo_dl.dists.Glorot())
-            nengo.Connection(ensembles_in[0], ensembles_out[1])
-            #Connect last ensemble
-            nengo.Connection(ensembles_out[-1], out, transform=nengo_dl.dists.Glorot(), synapse=None)
-            nengo.Connection(ensembles_out[-2], ensembles_in[-1])
-        else:
-            nengo.Connection(inp, ensembles_in[0], transform=nengo_dl.dists.Glorot())
-            nengo.Connection(ensembles_out[0], out, transform=nengo_dl.dists.Glorot(), synapse=None)
-        p = nengo.Probe(out)
-    return net
-
-
 # Create SNN
 def build_SNN(image_size, config, spiking=True):
     with nengo.Network(seed=config["seed"]) as net:
@@ -228,3 +173,128 @@ def build_SNN(image_size, config, spiking=True):
         nengo.Connection(lmu.h, out, transform=nengo_dl.dists.Glorot(), synapse=None)
         p = nengo.Probe(out)
     return net
+
+def build_SNN_simple(image_size, config):
+    with nengo.Network(seed=config["seed"]) as net:
+        # remove some unnecessary features to speed up the training
+        nengo_dl.configure_settings(stateful=False)
+        n_ensembles = 1
+        ens_dimension = 1
+        recurrent_size = 10000
+        depth = 1
+        # input node
+
+        inp = nengo.Node(np.zeros(image_size[-1]))  #
+        out = nengo.Node(size_in=101)
+        ensembles_in = []
+        ensembles_out = []
+        #Create ensembles
+        for i in range(depth):
+#            u1 = nengo.networks.EnsembleArray(
+#                n_neurons=1,
+#                n_ensembles=n_ensembles,
+#                ens_dimensions=ens_dimension,
+#                neuron_type=nengo.SpikingRectifiedLinear(),
+#            )
+
+            u2 = RecurrentEnsembleArray(
+                n_neurons=1,
+                n_ensembles=recurrent_size,
+                ens_dimensions=1,
+                timing_length=29,
+                recurrent_connection_percentage=0.10,
+                neuron_type=nengo.SpikingRectifiedLinear()
+                )
+
+#            out_u1 = nengo.Node(size_in=recurrent_size)
+#            nengo.Connection(u1.output, u2.input, transform=nengo_dl.dists.Glorot(), synapse=None)
+            ensembles_in.append(u2.input)
+            ensembles_out.append(u2.output)
+        #Connect middle ensembles
+        if depth != 1:
+            for i in range(1,depth-1):
+                curr_in = ensembles_in[i]
+                post_in = ensembles_in[i+1]
+                pre_out = ensembles_out[i-1]
+                curr_out = ensembles_out[i]
+
+                nengo.Connection(pre_out, curr_in)
+                nengo.Connection(curr_out, post_in)
+            #Connect first ensemble
+            nengo.Connection(inp, ensembles_in[0], transform=nengo_dl.dists.Glorot())
+            nengo.Connection(ensembles_in[0], ensembles_out[1])
+            #Connect last ensemble
+            nengo.Connection(ensembles_out[-1], out, transform=nengo_dl.dists.Glorot(), synapse=None)
+            nengo.Connection(ensembles_out[-2], ensembles_in[-1])
+        else:
+            nengo.Connection(inp, ensembles_in[0], transform=nengo_dl.dists.Glorot())
+            nengo.Connection(ensembles_out[0], out, transform=nengo_dl.dists.Glorot(), synapse=None)
+        p = nengo.Probe(out)
+    return net
+
+
+
+class RecurrentEnsembleArray(nengo.networks.EnsembleArray, nengo.Network ):
+    def __init__(
+                   self,
+        n_neurons,
+        n_ensembles,
+        ens_dimensions=1,
+        label=None,
+        seed=None,
+        add_to_container=None,
+        timing_length=29,
+        recurrent_connection_percentage=0.10,
+        **ens_kwargs 
+            ):
+        nengo.Network.__init__(self, label, seed, add_to_container)
+        for param in ens_kwargs:
+            if is_iterable(ens_kwargs[param]):
+                ens_kwargs[param] = nengo.dists.Samples(ens_kwargs[param])
+
+        self.config[nengo.Ensemble].update(ens_kwargs)
+
+        label_prefix = "" if label is None else label + "_"
+
+        self.n_neurons_per_ensemble = n_neurons
+        self.n_ensembles = n_ensembles
+        self.dimensions_per_ensemble = ens_dimensions
+
+        # These may be set in add_neuron_input and add_neuron_output
+        self.neuron_input, self.neuron_output = None, None
+
+        self.ea_ensembles = []
+        #Used for dropout
+        #Key = label id (just number, no prefix), values = the ensemble and its connections
+        self.conns = {}
+
+        with self:
+            self.input = nengo.Node(size_in=self.dimensions, label="input")
+
+            for i in range(n_ensembles):
+                ensemble_conn = []
+                e = nengo.Ensemble(
+                    n_neurons,
+                    self.dimensions_per_ensemble,
+                    label="%s%d" % (label_prefix, i),
+                )
+                # Make the node non-passthrough
+                # This is useful for dropout
+                self.input.output =  lambda t, x: x
+                #Create recurrent connections
+                if random.uniform(0, 1) < recurrent_connection_percentage:
+                    timing = random.uniform(0,timing_length)
+                    #0.001 is simulation step time
+                    conn_r = nengo.Connection(e, e, transform=nengo_dl.dists.Glorot(), synapse=timing*0.001)
+                    ensemble_conn.append(conn_r)
+                conn = nengo.Connection(
+                    self.input[i * ens_dimensions : (i + 1) * ens_dimensions],
+                    e,
+                    synapse=None,
+                )
+                ensemble_conn.append(conn)
+                d = {i:ensemble_conn}
+                self.conns.update(d)
+                self.ea_ensembles.append(e)
+
+            self.add_output("output", function=None)
