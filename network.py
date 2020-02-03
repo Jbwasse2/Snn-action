@@ -202,7 +202,7 @@ def build_SNN_simple(image_size, config):
                 n_ensembles=recurrent_size,
                 ens_dimensions=1,
                 timing_length=29,
-                recurrent_connection_percentage=0.10,
+                recurrent_connection_percentage=0.01,
                 neuron_type=nengo.SpikingRectifiedLinear()
                 )
 

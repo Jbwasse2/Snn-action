@@ -122,7 +122,7 @@ with nengo_dl.Simulator(
     train_accs = []
     def setup_network(SNN, device):
         ProgressBar = utils.ProgressBar 
-        p = ProgressBar("Building network Custom", "Build")
+        p = ProgressBar("Building Dropout Network", "Build")
         sim.model = NengoModel(
             dt=float(0.001),
             label="%s, dt=%f" % (SNN, 0.001),
@@ -152,6 +152,7 @@ with nengo_dl.Simulator(
 
     if config["SNN_trainer"]["do_SNN_training"]:
         for i in range(config["SNN_trainer"]["epochs"]):
+            print(i)
             #Do dropout
             connections = SNN.networks[0].conns
             freeze = random.sample(range(len(connections)),int(len(connections) * 0.5))
@@ -165,18 +166,25 @@ with nengo_dl.Simulator(
             if i != 0:
                 sim.load_params("./temp_params")
             history = sim.fit(train_data, train_labels, epochs=1)
+            sim.save_params("./temp_params")
             logger.debug("training parameters")
             logger.info(history.params)
             logger.debug("training results")
             logger.debug(history.history)
             train_accs.append(history.history["probe_accuracy"])
             # save the parameters to file
+            connections = SNN.networks[0].conns
+            for counter, neuron_connections in enumerate(list(connections.values())):
+                for connection in neuron_connections:
+                        connection.function = None
+            setup_network(SNN, device)
+            if i != 0:
+                sim.load_params("./temp_params")
             test_acc = (
                 sim.evaluate(test_data, test_labels, verbose=1)["probe_accuracy"] * 100
             )
             logger.debug("test accuracy: %.2f%%" % (test_acc))
             test_accs.append(test_acc)
-            sim.save_params("./temp_params")
 
         sim.save_params(config["pickle_locations"]["SNN_weights"])
     else:
