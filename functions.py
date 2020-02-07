@@ -2,14 +2,15 @@
 import os
 
 import numpy as np
+from PIL import Image
+from tqdm import tqdm
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torchvision.models as models
 import torchvision.transforms as transforms
-from PIL import Image
 from torch.utils import data
-from tqdm import tqdm
 
 
 ## ------------------- label conversion tools ------------------ ##
