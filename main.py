@@ -1,8 +1,14 @@
 import argparse
 import logging
+import os
 import pickle
+import random
 from configparser import ConfigParser
 
+#Shuffle around images for testing Girish's idea
+import numpy as np
+
+import nengo
 import nengo_dl
 import tensorflow as tf
 import torch
@@ -10,17 +16,20 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from dataloader import get_dataloaders
-from nengo_dl.builder import NengoBuilder, NengoModel
 from functions import DecoderRNN, ResCNNEncoder
+from nengo_dl import callbacks, config, utils
+from nengo_dl.builder import NengoBuilder, NengoModel
+from nengo_dl.tensor_graph import TensorGraph
 from network import build_SNN, build_SNN_simple
 from parse_config import ConfigParser
 from torch.optim.lr_scheduler import StepLR
 from torchvision import datasets, transforms
-from nengo_dl import utils, config, callbacks
 from utils import dataloader_to_np_array, setup
-from nengo_dl.tensor_graph import TensorGraph
-import random
+
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
+
 def write_to_debug(s):
+    s = str(s)
     with open("debug.txt", "w") as text_file:
         text_file.write(s)
 
@@ -100,6 +109,25 @@ else:
 
 SNN = build_SNN_simple(train_data.shape, config)
 
+
+
+def make_new_connections(full_connections, SNN):
+    #Get number of unique ensembles in connections
+    ensembles = list(range(config["SNN"]["ensembles"]))
+    freeze = random.sample(range(len(ensembles)),int(len(ensembles) * 0.5))
+#        SNN.networks[0].all_connections = full_connections
+#        SNN.networks[0].ensemble_conn = full_connections
+    new_connections = []
+    for connection in full_connections:
+        if isinstance(connection.pre, nengo.ensemble.Ensemble):
+            if int(connection.pre.label) not in freeze:
+                new_connections.append(connection)
+        elif isinstance(connection.post, nengo.ensemble.Ensemble):
+            if int(connection.post.label) not in freeze:
+                new_connections.append(connection)
+    SNN.networks[0].connections = new_connections
+    SNN.networks[0].objects[nengo.connection.Connection] = new_connections
+    SNN.networks[0].ea_ensembles = initial_connections
 with nengo_dl.Simulator(
     SNN,
     minibatch_size=config["SNN"]["minibatch_size"],
@@ -112,6 +140,7 @@ with nengo_dl.Simulator(
         metrics=["accuracy"],
     )
 
+    device="/gpu:0"
     if config["SNN_trainer"]["get_initial_testing_accuracy"]:
         logger.debug(
             "Initial test accuracy: %.2f%%"
@@ -138,7 +167,7 @@ with nengo_dl.Simulator(
                 sim.dt,
                 1,
                 100,
-                "/gpu:0",
+                "/gpu:1",
                 progress,
                 0,
         )
@@ -150,22 +179,48 @@ with nengo_dl.Simulator(
             metrics=["accuracy"],
         )
 
+    initial_connections = SNN.networks[0].connections
+
+    def update_connections(sim_model, initial_connections):
+        #extract connections from sim_model
+        new_connections = []
+        for key in list(sim.model.params.keys()):
+            if isinstance(key, nengo.connection.Connection):
+                new_connections.append(key)
+        #Create dictionary of old connections with pre and post as key, value is connection
+        conns = {}
+        for connection in initial_connections:
+            d = {(connection.pre,connection.post):connection}
+            conns.update(d)
+        for connection in new_connections:
+            conns[connection.pre, connection.post] = connection
+        ret_connections = list(conns.values())
+        return ret_connections
+
     if config["SNN_trainer"]["do_SNN_training"]:
         for i in range(config["SNN_trainer"]["epochs"]):
             print(i)
             #Do dropout
-            connections = SNN.networks[0].conns
-            freeze = random.sample(range(len(connections)),int(len(connections) * 0.5))
-            for counter, neuron_connections in enumerate(list(connections.values())):
-                for connection in neuron_connections:
-                    if counter in freeze:
-                        connection.function = lambda x: 0
-                    else:
-                        connection.function = None
-            setup_network(SNN, device)
-            if i != 0:
-                sim.load_params("./temp_params")
+#            if i != 0:
+#                sim.load_params("./temp_params")
+#            make_new_connections(initial_connections, SNN)
+#            setup_network(SNN, device)
+            #shuffle data around for shits and giggles
+#            permutation = np.random.permutation(train_data.shape[1])
+#            train_data = np.take(train_data, permutation, axis=1, out=train_data)
+#            train_labels = np.take(train_labels, permutation, axis=1, out=train_labels)
+#
+#            permutation = np.random.permutation(train_data.shape[1])
+#            test_data = np.take(test_data, permutation, axis=1, out=test_data)
+#            test_labels = np.take(test_labels, permutation, axis=1, out=test_labels)
+#
             history = sim.fit(train_data, train_labels, epochs=1)
+#            import pudb; pu.db
+#            initial_connections = update_connections(sim.model, initial_connections)
+#j            SNN.networks[0].connections = initial_connections
+#            SNN.networks[0].objects[nengo.connection.Connection] = initial_connections
+#            SNN.networks[0].ea_ensembles = initial_connections
+#            setup_network(SNN, device)
             sim.save_params("./temp_params")
             logger.debug("training parameters")
             logger.info(history.params)
@@ -173,13 +228,6 @@ with nengo_dl.Simulator(
             logger.debug(history.history)
             train_accs.append(history.history["probe_accuracy"])
             # save the parameters to file
-            connections = SNN.networks[0].conns
-            for counter, neuron_connections in enumerate(list(connections.values())):
-                for connection in neuron_connections:
-                        connection.function = None
-            setup_network(SNN, device)
-            if i != 0:
-                sim.load_params("./temp_params")
             test_acc = (
                 sim.evaluate(test_data, test_labels, verbose=1)["probe_accuracy"] * 100
             )
@@ -189,12 +237,6 @@ with nengo_dl.Simulator(
         sim.save_params(config["pickle_locations"]["SNN_weights"])
     else:
         sim.load_params(config["pickle_locations"]["SNN_weights"])
-    connections = SNN.networks[0].conns
-    for counter, neuron_connections in enumerate(list(connections.values())):
-        for connection in neuron_connections:
-                connection.function = None
-    setup_network(SNN, device)
-    sim.load_params("./temp_params")
     final_test = sim.evaluate(test_data, test_labels, verbose=1)["probe_accuracy"] * 100
     # Step 4 - Test
     logger.debug("test accuracy: %.2f%%" % (final_test))

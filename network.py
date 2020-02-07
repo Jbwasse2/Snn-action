@@ -1,16 +1,17 @@
+import random
 from collections import deque
 
 import matplotlib.pyplot as plt
-from nengo.utils.numpy import is_iterable
-import random
+import numpy as np
+
 import nengo
 import nengo_dl
 import nengo_loihi
-import numpy as np
 import tensorflow as tf
 import torch
 import torch.nn as nn
 from nengo.utils.filter_design import cont2discrete
+from nengo.utils.numpy import is_iterable
 
 
 # Create LMU cell
@@ -179,8 +180,8 @@ def build_SNN_simple(image_size, config):
         # remove some unnecessary features to speed up the training
         nengo_dl.configure_settings(stateful=False)
         n_ensembles = 1
-        ens_dimension = 1
-        recurrent_size = 10000
+        ens_dimension = 50
+        recurrent_size = config["SNN"]["ensembles"]
         depth = 1
         # input node
 
@@ -192,8 +193,8 @@ def build_SNN_simple(image_size, config):
         for i in range(depth):
 #            u1 = nengo.networks.EnsembleArray(
 #                n_neurons=1,
-#                n_ensembles=n_ensembles,
-#                ens_dimensions=ens_dimension,
+#                n_ensembles=1000,
+#                ens_dimensions=1,
 #                neuron_type=nengo.SpikingRectifiedLinear(),
 #            )
 
@@ -202,14 +203,16 @@ def build_SNN_simple(image_size, config):
                 n_ensembles=recurrent_size,
                 ens_dimensions=1,
                 timing_length=29,
-                recurrent_connection_percentage=0.01,
-                neuron_type=nengo.SpikingRectifiedLinear()
+                recurrent_connection_percentage=1.0,
+                neuron_type=nengo.Izhikevich()
                 )
+            x = nengo_dl.tensor_layer(u2.output, tf.keras.layers.Dropout(rate=0.8))
 
-#            out_u1 = nengo.Node(size_in=recurrent_size)
+
+    #            out_u1 = nengo.Node(size_in=recurrent_size)
 #            nengo.Connection(u1.output, u2.input, transform=nengo_dl.dists.Glorot(), synapse=None)
             ensembles_in.append(u2.input)
-            ensembles_out.append(u2.output)
+            ensembles_out.append(x)
         #Connect middle ensembles
         if depth != 1:
             for i in range(1,depth-1):
@@ -253,7 +256,6 @@ class RecurrentEnsembleArray(nengo.networks.EnsembleArray, nengo.Network ):
                 ens_kwargs[param] = nengo.dists.Samples(ens_kwargs[param])
 
         self.config[nengo.Ensemble].update(ens_kwargs)
-
         label_prefix = "" if label is None else label + "_"
 
         self.n_neurons_per_ensemble = n_neurons
@@ -270,6 +272,8 @@ class RecurrentEnsembleArray(nengo.networks.EnsembleArray, nengo.Network ):
 
         with self:
             self.input = nengo.Node(size_in=self.dimensions, label="input")
+            #Create NULL neuron. connects to self, does nothign really just allows temporary moving of connections for dropout
+            self.null_node =  nengo.Node(1)
 
             for i in range(n_ensembles):
                 ensemble_conn = []
@@ -296,5 +300,4 @@ class RecurrentEnsembleArray(nengo.networks.EnsembleArray, nengo.Network ):
                 d = {i:ensemble_conn}
                 self.conns.update(d)
                 self.ea_ensembles.append(e)
-
             self.add_output("output", function=None)

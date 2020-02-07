@@ -69,8 +69,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="448.44687"
-     inkscape:cy="594.91537"
+     inkscape:cx="669.32916"
+     inkscape:cy="579.32398"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -117,716 +117,892 @@
            height="70.710678"
            x="582.85803"
            y="699.14142" /></flowRegion><flowPara
-         id="flowPara163"></flowPara></flowRoot>    <g
-       id="g5513"
-       inkscape:export-filename="/home/justin/Downloads/ensembleArray.png"
+         id="flowPara163" /></flowRoot>    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.22429892;stroke-opacity:1"
+       id="rect968"
+       width="302.79919"
+       height="190.1631"
+       x="11.27567"
+       y="73.065582"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 34.206845,104.23214 h -9.82738 v 83.34375 H 34.77381"
+       id="path62"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 18.709822,147.6994 h 5.480655"
+       id="path64"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="2.0716763"
+       y="142.39137"
+       id="text68"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan66"
+         x="2.0716763"
+         y="142.39137"
+         style="font-size:7.05555534px;stroke-width:0.26458332">Input</tspan><tspan
+         sodipodi:role="line"
+         x="2.0716763"
+         y="155.62054"
+         style="font-size:7.05555534px;stroke-width:0.26458332"
+         id="tspan72">Layer</tspan><tspan
+         sodipodi:role="line"
+         x="2.0716763"
+         y="168.8497"
+         style="font-size:7.05555534px;stroke-width:0.26458332"
+         id="tspan76" /></text>
+    <g
+       id="g287"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96">
-      <path
-         inkscape:connector-curvature="0"
-         id="path62"
-         d="m 34.206845,104.23214 h -9.82738 v 83.34375 H 34.77381"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path64"
-         d="m 18.709822,147.6994 h 5.480655"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <text
-         id="text68"
-         y="137.58052"
-         x="3.1407545"
-         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         xml:space="preserve"><tspan
-           style="font-size:4.23333311px;stroke-width:0.26458332"
-           y="137.58052"
-           x="3.1407545"
-           id="tspan66"
-           sodipodi:role="line">Input</tspan><tspan
-           id="tspan72"
-           style="font-size:4.23333311px;stroke-width:0.26458332"
-           y="150.80968"
-           x="3.1407545"
-           sodipodi:role="line">Layer</tspan><tspan
-           id="tspan76"
-           style="font-size:4.23333311px;stroke-width:0.26458332"
-           y="164.03885"
-           x="3.1407545"
-           sodipodi:role="line">(size 512)</tspan></text>
-      <g
-         id="g287">
-        <circle
-           style="fill:none;stroke:#000000;stroke-width:0.26458332"
-           id="path10"
-           cx="46.585571"
-           cy="103.47619"
-           r="6.0476193" />
-        <circle
-           style="fill:none;stroke:#000000;stroke-width:0.26458332"
-           id="path10-3"
-           cx="46.585571"
-           cy="118.64249"
-           r="6.0476193" />
-        <circle
-           style="fill:none;stroke:#000000;stroke-width:0.26458332"
-           id="path10-6"
-           cx="46.585571"
-           cy="133.80878"
-           r="6.0476193" />
-        <circle
-           style="fill:none;stroke:#000000;stroke-width:0.26458332"
-           id="path10-7"
-           cx="46.585571"
-           cy="148.97508"
-           r="6.0476193" />
-        <circle
-           style="fill:none;stroke:#000000;stroke-width:0.26458332"
-           id="path10-5"
-           cx="46.585571"
-           cy="185.875"
-           r="6.0476193" />
-        <circle
-           style="fill:#000000;stroke:#000000;stroke-width:0.11497085"
-           id="path82"
-           cx="46.585571"
-           cy="160.62251"
-           r="1.2775191" />
-        <circle
-           style="fill:#000000;stroke:#000000;stroke-width:0.11497086"
-           id="path82-6"
-           cx="46.585567"
-           cy="167.42503"
-           r="1.2775191" />
-        <circle
-           style="fill:#000000;stroke:#000000;stroke-width:0.11497086"
-           id="path82-2"
-           cx="46.585567"
-           cy="174.22755"
-           r="1.2775191" />
-      </g>
-      <flowRoot
-         transform="matrix(0.26458333,0,0,0.26458333,71.177417,254.09979)"
-         style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-         id="flowRoot111"
-         xml:space="preserve"><flowRegion
-           id="flowRegion113"><rect
-             y="14.382342"
-             x="64.649765"
-             height="91.923882"
-             width="623.2641"
-             id="rect115" /></flowRegion><flowPara
-           id="flowPara117">ensembleArray Network</flowPara></flowRoot>      <circle
+      <circle
          r="6.0476193"
-         cy="77.704674"
-         cx="99.240845"
-         id="path10-2"
+         cy="103.47619"
+         cx="46.585571"
+         id="path10"
          style="fill:none;stroke:#000000;stroke-width:0.26458332" />
       <circle
          r="6.0476193"
-         cy="92.870972"
-         cx="99.240845"
-         id="path10-3-7"
+         cy="118.64249"
+         cx="46.585571"
+         id="path10-3"
          style="fill:none;stroke:#000000;stroke-width:0.26458332" />
       <circle
          r="6.0476193"
-         cy="108.03727"
-         cx="99.240845"
-         id="path10-6-0"
+         cy="133.80878"
+         cx="46.585571"
+         id="path10-6"
          style="fill:none;stroke:#000000;stroke-width:0.26458332" />
       <circle
          r="6.0476193"
-         cy="123.20357"
-         cx="99.240845"
-         id="path10-7-9"
+         cy="148.97508"
+         cx="46.585571"
+         id="path10-7"
          style="fill:none;stroke:#000000;stroke-width:0.26458332" />
       <circle
          r="6.0476193"
-         cy="208.74655"
-         cx="99.240845"
-         id="path10-5-3"
+         cy="185.875"
+         cx="46.585571"
+         id="path10-5"
          style="fill:none;stroke:#000000;stroke-width:0.26458332" />
       <circle
          r="1.2775191"
-         cy="134.85097"
-         cx="99.240845"
-         id="path82-60"
+         cy="160.62251"
+         cx="46.585571"
+         id="path82"
+         style="fill:#000000;stroke:#000000;stroke-width:0.11497085" />
+      <circle
+         r="1.2775191"
+         cy="167.42503"
+         cx="46.585567"
+         id="path82-6"
          style="fill:#000000;stroke:#000000;stroke-width:0.11497086" />
       <circle
          r="1.2775191"
-         cy="142.76167"
-         cx="99.240845"
-         id="path82-6-6"
-         style="fill:#000000;stroke:#000000;stroke-width:0.11497087" />
+         cy="174.22755"
+         cx="46.585567"
+         id="path82-2"
+         style="fill:#000000;stroke:#000000;stroke-width:0.11497086" />
+    </g>
+    <circle
+       style="fill:none;stroke:#000000;stroke-width:0.26458332"
+       id="path10-2"
+       cx="99.240845"
+       cy="77.704674"
+       r="6.0476193"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:none;stroke:#000000;stroke-width:0.26458332"
+       id="path10-3-7"
+       cx="99.240845"
+       cy="92.870972"
+       r="6.0476193"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:none;stroke:#000000;stroke-width:0.26458332"
+       id="path10-6-0"
+       cx="99.240845"
+       cy="108.03727"
+       r="6.0476193"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:none;stroke:#000000;stroke-width:0.26458332"
+       id="path10-7-9"
+       cx="99.240845"
+       cy="123.20357"
+       r="6.0476193"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:none;stroke:#000000;stroke-width:0.26458332"
+       id="path10-5-3"
+       cx="99.240845"
+       cy="208.74655"
+       r="6.0476193"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#000000;stroke:#000000;stroke-width:0.11497086"
+       id="path82-60"
+       cx="99.240845"
+       cy="134.85097"
+       r="1.2775191"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#000000;stroke:#000000;stroke-width:0.11497087"
+       id="path82-6-6"
+       cx="99.240845"
+       cy="142.76167"
+       r="1.2775191"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#000000;stroke:#000000;stroke-width:0.11497087"
+       id="path82-2-2"
+       cx="99.240845"
+       cy="150.67239"
+       r="1.2775191"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#000000;stroke:#000000;stroke-width:0.11497087"
+       id="path82-60-6"
+       cx="99.240845"
+       cy="158.5831"
+       r="1.2775191"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#000000;stroke:#000000;stroke-width:0.11497087"
+       id="path82-6-6-1"
+       cx="99.240845"
+       cy="166.4938"
+       r="1.2775191"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#000000;stroke:#000000;stroke-width:0.11497087"
+       id="path82-2-2-8"
+       cx="99.240845"
+       cy="174.40451"
+       r="1.2775191"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#000000;stroke:#000000;stroke-width:0.11497087"
+       id="path82-60-7"
+       cx="99.240845"
+       cy="182.31523"
+       r="1.2775191"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#000000;stroke:#000000;stroke-width:0.11497087"
+       id="path82-6-6-9"
+       cx="99.240845"
+       cy="190.22594"
+       r="1.2775191"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#000000;stroke:#000000;stroke-width:0.11497087"
+       id="path82-2-2-2"
+       cx="99.240845"
+       cy="198.13664"
+       r="1.2775191"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.61980009px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 86.585772,73.701259 V 63.263468 H 222.5352 v 10.176845"
+       id="path244"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 155.19428,63.533353 V 55.114365"
+       id="path246"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="128.3501"
+       y="52.857025"
+       id="text250"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan248"
+         x="128.3501"
+         y="52.857025"
+         style="font-size:7.05555534px;stroke-width:0.26458332">ensembleArray</tspan></text>
+    <circle
+       style="fill:none;stroke:#000000;stroke-width:0.26458332"
+       id="path10-2-2"
+       cx="151.6611"
+       cy="95.443382"
+       r="6.0476193"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:none;stroke:#000000;stroke-width:0.26458332"
+       id="path10-3-7-3"
+       cx="151.6611"
+       cy="112.74602"
+       r="6.0476193"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <g
+       id="g4883"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
       <circle
          r="1.2775191"
-         cy="150.67239"
-         cx="99.240845"
-         id="path82-2-2"
-         style="fill:#000000;stroke:#000000;stroke-width:0.11497087" />
-      <circle
-         r="1.2775191"
-         cy="158.5831"
-         cx="99.240845"
-         id="path82-60-6"
-         style="fill:#000000;stroke:#000000;stroke-width:0.11497087" />
-      <circle
-         r="1.2775191"
-         cy="166.4938"
-         cx="99.240845"
-         id="path82-6-6-1"
-         style="fill:#000000;stroke:#000000;stroke-width:0.11497087" />
-      <circle
-         r="1.2775191"
-         cy="174.40451"
-         cx="99.240845"
-         id="path82-2-2-8"
-         style="fill:#000000;stroke:#000000;stroke-width:0.11497087" />
-      <circle
-         r="1.2775191"
-         cy="182.31523"
-         cx="99.240845"
-         id="path82-60-7"
-         style="fill:#000000;stroke:#000000;stroke-width:0.11497087" />
-      <circle
-         r="1.2775191"
-         cy="190.22594"
-         cx="99.240845"
-         id="path82-6-6-9"
-         style="fill:#000000;stroke:#000000;stroke-width:0.11497087" />
-      <circle
-         r="1.2775191"
-         cy="198.13664"
-         cx="99.240845"
-         id="path82-2-2-2"
-         style="fill:#000000;stroke:#000000;stroke-width:0.11497087" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path244"
-         d="M 86.585772,73.701259 V 63.263468 H 222.5352 v 10.176845"
-         style="fill:none;stroke:#000000;stroke-width:0.61980009px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path246"
-         d="M 146.90892,63.533353 V 55.114365"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <text
-         id="text250"
-         y="52.923843"
-         x="127.09449"
-         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         xml:space="preserve"><tspan
-           style="font-size:4.93888903px;stroke-width:0.26458332"
-           y="52.923843"
-           x="127.09449"
-           id="tspan248"
-           sodipodi:role="line">ensembleArray</tspan></text>
-      <circle
-         r="6.0476193"
-         cy="95.443382"
+         cy="125.54996"
          cx="151.6611"
-         id="path10-2-2"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332" />
+         id="path82-60-75"
+         style="fill:#000000;stroke:#000000;stroke-width:0.11497087" />
       <circle
-         r="6.0476193"
-         cy="112.74602"
+         r="1.2775191"
+         cy="133.16278"
          cx="151.6611"
-         id="path10-3-7-3"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332" />
-      <g
-         id="g4883">
-        <circle
-           style="fill:#000000;stroke:#000000;stroke-width:0.11497087"
-           id="path82-60-75"
-           cx="151.6611"
-           cy="125.54996"
-           r="1.2775191" />
-        <circle
-           style="fill:#000000;stroke:#000000;stroke-width:0.11497087"
-           id="path82-6-6-92"
-           cx="151.6611"
-           cy="133.16278"
-           r="1.2775191" />
-      </g>
+         id="path82-6-6-92"
+         style="fill:#000000;stroke:#000000;stroke-width:0.11497087" />
+    </g>
+    <circle
+       style="fill:none;stroke:#000000;stroke-width:0.26458332"
+       id="path10-5-3-2"
+       cx="151.6611"
+       cy="145.27432"
+       r="6.0476193"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 140.58377,151.33811 v 8.01808 h 22.31701 v -8.01808"
+       id="path324"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.21728379px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 151.80909,159.32278 v 3.87541"
+       id="path326"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 88.733483,211.34012 v 7.48354 h 19.911577 v -8.01808"
+       id="path334"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 98.840773,219.04241 v 2.69308"
+       id="path336"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="71.99659"
+       y="204.8248"
+       id="text340"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan338"
+         x="71.99659"
+         y="214.18857"
+         style="stroke-width:0.26458332" /><tspan
+         sodipodi:role="line"
+         x="71.99659"
+         y="227.41774"
+         style="font-size:7.05555534px;stroke-width:0.26458332"
+         id="tspan342">ensembleArray</tspan><tspan
+         sodipodi:role="line"
+         x="71.99659"
+         y="240.6469"
+         style="font-size:7.05555534px;stroke-width:0.26458332"
+         id="tspan344" /></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.21918529px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 161.82105,95.443378 h 26.45833"
+       id="path95"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.21918529px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 161.82105,112.74602 h 26.45833"
+       id="path95-6"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.21918529px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 161.82106,145.27432 h 26.45833"
+       id="path95-7"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:none;stroke:#000000;stroke-width:0.26458332"
+       id="path10-2-2-5"
+       cx="199.66592"
+       cy="95.443375"
+       r="6.0476193"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:none;stroke:#000000;stroke-width:0.26458332"
+       id="path10-3-7-3-3"
+       cx="199.66592"
+       cy="112.74602"
+       r="6.0476193"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:none;stroke:#000000;stroke-width:0.26458332"
+       id="path10-5-3-2-5"
+       cx="199.66592"
+       cy="145.27432"
+       r="6.0476193"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 188.50742,210.80558 v 8.01808 h 22.31701 v -8.01808"
+       id="path324-6-9"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 260.77837,187.04921 h 9.82739 v -83.34374 h -10.39435"
+       id="path62-6"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 270.73805,147.26722 h 5.48066"
+       id="path64-2"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="277.8591"
+       y="143.20105"
+       id="text68-6"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan66-1"
+         x="277.8591"
+         y="143.20105"
+         style="font-size:7.05555534px;stroke-width:0.26458332">output</tspan><tspan
+         sodipodi:role="line"
+         x="277.8591"
+         y="156.43022"
+         style="font-size:7.05555534px;stroke-width:0.26458332"
+         id="tspan72-8">Layer</tspan><tspan
+         sodipodi:role="line"
+         x="277.8591"
+         y="169.65938"
+         style="font-size:7.05555534px;stroke-width:0.26458332"
+         id="tspan76-7" /></text>
+    <g
+       id="g297"
+       transform="translate(-26.080357,4.5357094)"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
       <circle
          r="6.0476193"
-         cy="145.27432"
-         cx="151.6611"
-         id="path10-5-3-2"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path324"
-         d="m 140.58377,151.33811 v 8.01808 h 22.31701 v -8.01808"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path326"
-         d="m 151.80909,159.32278 v 5.7463"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <text
-         id="text330"
-         y="161.66139"
-         x="140.01581"
-         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         xml:space="preserve"><tspan
-           dy="7.9299998"
-           style="font-size:4.93888903px;line-height:2;letter-spacing:0px;word-spacing:-0.54504174px;stroke-width:0.26458332"
-           y="161.66139"
-           x="140.01581"
-           id="tspan328"
-           sodipodi:role="line">Individual</tspan><tspan
-           id="tspan332"
-           style="font-size:4.93888903px;line-height:2;letter-spacing:0px;word-spacing:-0.54504174px;stroke-width:0.26458332"
-           y="174.89056"
-           x="140.01581"
-           sodipodi:role="line">ensemble</tspan><tspan
-           dy="-8.1100025"
-           id="tspan151"
-           style="font-size:4.93888903px;line-height:2;letter-spacing:0px;word-spacing:-0.54504174px;stroke-width:0.26458332"
-           y="188.11972"
-           x="140.01581"
-           sodipodi:role="line">each individual </tspan><tspan
-           id="tspan149"
-           style="font-size:4.93888903px;line-height:2;letter-spacing:0px;word-spacing:-0.54504174px;stroke-width:0.26458332"
-           y="201.34889"
-           x="140.01581"
-           sodipodi:role="line"><tspan
-             style="font-size:4.93888903px;line-height:2;letter-spacing:0px;word-spacing:-0.54504174px;stroke-width:0.26458332"
-             id="tspan167"
-             dy="-16.02998">ensemble size = 50</tspan></tspan></text>
-      <path
-         inkscape:connector-curvature="0"
-         id="path334"
-         d="m 88.733483,211.34012 v 7.48354 h 19.911577 v -8.01808"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path336"
-         d="m 98.840773,219.04241 v 2.69308"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <text
-         id="text340"
-         y="204.02299"
-         x="87.000198"
-         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         xml:space="preserve"><tspan
-           style="stroke-width:0.26458332"
-           y="213.38676"
-           x="87.000198"
-           id="tspan338"
-           sodipodi:role="line" /><tspan
-           id="tspan342"
-           style="font-size:4.93888903px;stroke-width:0.26458332"
-           y="226.61594"
-           x="87.000198"
-           sodipodi:role="line">ensemble</tspan><tspan
-           dy="-7.7000027 0 0 0 0 7.7000027"
-           id="tspan344"
-           style="font-size:4.93888903px;stroke-width:0.26458332"
-           y="239.84509"
-           x="87.000198"
-           sodipodi:role="line">input  </tspan></text>
-      <path
-         inkscape:connector-curvature="0"
-         id="path95"
-         d="m 161.82105,95.443378 h 26.45833"
-         style="fill:none;stroke:#000000;stroke-width:0.21918529px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path95-6"
-         d="m 161.82105,112.74602 h 26.45833"
-         style="fill:none;stroke:#000000;stroke-width:0.21918529px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path95-7"
-         d="m 161.82106,145.27432 h 26.45833"
-         style="fill:none;stroke:#000000;stroke-width:0.21918529px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <circle
-         r="6.0476193"
-         cy="95.443375"
-         cx="199.66592"
-         id="path10-2-2-5"
+         cy="98.940475"
+         cx="272.82852"
+         id="path10-0"
          style="fill:none;stroke:#000000;stroke-width:0.26458332" />
       <circle
          r="6.0476193"
-         cy="112.74602"
-         cx="199.66592"
-         id="path10-3-7-3-3"
+         cy="114.10677"
+         cx="272.82852"
+         id="path10-3-9"
          style="fill:none;stroke:#000000;stroke-width:0.26458332" />
       <circle
          r="6.0476193"
-         cy="145.27432"
-         cx="199.66592"
-         id="path10-5-3-2-5"
+         cy="129.27306"
+         cx="272.82852"
+         id="path10-6-3"
          style="fill:none;stroke:#000000;stroke-width:0.26458332" />
-      <text
-         id="text141"
-         y="276.08713"
-         x="76.415085"
-         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         xml:space="preserve"><tspan
-           id="tspan147"
-           style="font-size:4.93888903px;stroke-width:0.26458332"
-           y="276.08713"
-           x="76.415085"
-           sodipodi:role="line">n_ensembles = 10,000, n_neurons = 50, ens_dimensions = 2</tspan></text>
-      <path
-         inkscape:connector-curvature="0"
-         id="path324-6"
-         d="m 140.11605,211.12557 v 8.01808 h 22.31701 v -8.01808"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path326-2"
-         d="m 151.34137,219.11024 v 5.7463"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <text
-         id="text195"
-         y="231.08727"
-         x="127.08665"
-         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         xml:space="preserve"><tspan
-           style="font-size:4.93888903px;stroke-width:0.26458332"
-           y="231.08727"
-           x="127.08665"
-           id="tspan193"
-           sodipodi:role="line">total size = 500,000</tspan></text>
-      <text
-         id="text199"
-         y="237.56325"
-         x="82.020828"
-         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         xml:space="preserve"><tspan
-           style="font-size:4.93888903px;stroke-width:0.26458332"
-           y="237.56325"
-           x="82.020828"
-           id="tspan197"
-           sodipodi:role="line">size = 20,000</tspan></text>
-      <path
-         inkscape:connector-curvature="0"
-         id="path324-6-9"
-         d="m 188.50742,211.36217 v 8.01808 h 22.31701 v -8.01808"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <text
-         id="text195-2"
-         y="234.97115"
-         x="178.03069"
-         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         xml:space="preserve"><tspan
-           style="font-size:4.93888903px;stroke-width:0.26458332"
-           y="234.97115"
-           x="178.03069"
-           id="tspan193-7"
-           sodipodi:role="line">total size = 500,000</tspan></text>
-      <path
-         inkscape:connector-curvature="0"
-         id="path62-6"
-         d="m 260.77837,187.04921 h 9.82739 v -83.34374 h -10.39435"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path64-2"
-         d="m 270.73805,147.26722 h 5.48066"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <text
-         id="text68-6"
-         y="137.58838"
-         x="280.26453"
-         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         xml:space="preserve"><tspan
-           style="font-size:4.23333311px;stroke-width:0.26458332"
-           y="137.58838"
-           x="280.26453"
-           id="tspan66-1"
-           sodipodi:role="line">output</tspan><tspan
-           id="tspan72-8"
-           style="font-size:4.23333311px;stroke-width:0.26458332"
-           y="150.81755"
-           x="280.26453"
-           sodipodi:role="line">Layer</tspan><tspan
-           id="tspan76-7"
-           style="font-size:4.23333311px;stroke-width:0.26458332"
-           y="164.04671"
-           x="280.26453"
-           sodipodi:role="line">(size 101)</tspan></text>
-      <g
-         transform="translate(-26.080357,4.5357094)"
-         id="g297">
-        <circle
-           style="fill:none;stroke:#000000;stroke-width:0.26458332"
-           id="path10-0"
-           cx="272.82852"
-           cy="98.940475"
-           r="6.0476193" />
-        <circle
-           style="fill:none;stroke:#000000;stroke-width:0.26458332"
-           id="path10-3-9"
-           cx="272.82852"
-           cy="114.10677"
-           r="6.0476193" />
-        <circle
-           style="fill:none;stroke:#000000;stroke-width:0.26458332"
-           id="path10-6-3"
-           cx="272.82852"
-           cy="129.27306"
-           r="6.0476193" />
-        <circle
-           style="fill:none;stroke:#000000;stroke-width:0.26458332"
-           id="path10-7-6"
-           cx="272.82852"
-           cy="144.43936"
-           r="6.0476193" />
-        <circle
-           style="fill:none;stroke:#000000;stroke-width:0.26458332"
-           id="path10-5-0"
-           cx="272.82852"
-           cy="181.33929"
-           r="6.0476193" />
-        <circle
-           style="fill:#000000;stroke:#000000;stroke-width:0.11497086"
-           id="path82-9"
-           cx="272.82852"
-           cy="156.08679"
-           r="1.2775191" />
-        <circle
-           style="fill:#000000;stroke:#000000;stroke-width:0.11497087"
-           id="path82-6-2"
-           cx="272.82852"
-           cy="162.88931"
-           r="1.2775191" />
-        <circle
-           style="fill:#000000;stroke:#000000;stroke-width:0.11497087"
-           id="path82-2-0"
-           cx="272.82852"
-           cy="169.69183"
-           r="1.2775191" />
-      </g>
-      <path
-         inkscape:connector-curvature="0"
-         id="path4807"
-         d="m 89.580356,94.215773 -33.828867,9.638397 34.206845,3.59077"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4809"
-         d="M 55.751489,103.85417 90.147321,81.742558"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4811"
-         d="M 89.391367,121.61905 55.751489,103.85417 91.470238,200.42708"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4813"
-         d="M 56.129464,118.21726 90.147319,81.742558"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4815"
-         d="m 89.580354,94.215773 -33.45089,24.001487 33.82887,-10.77232"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4817"
-         d="m 89.391367,121.61905 -33.261903,-3.40179 35.340774,82.20982"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4819"
-         d="M 90.147319,81.742558 55.751489,132.76934 89.580354,94.215773"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4821"
-         d="m 55.751489,132.76934 34.206843,-25.3244"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4823"
-         d="M 55.751489,132.76934 89.391367,121.61905"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4825"
-         d="m 55.751489,132.76934 35.718749,67.65774"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4827"
-         d="M 90.147319,81.742558 54.995534,149.02232 89.580356,94.215773"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4829"
-         d="M 54.995534,149.02232 89.95833,107.44494"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4831"
-         d="M 54.995534,149.02232 89.391367,121.61905"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4833"
-         d="m 54.995534,149.02232 36.474704,51.40476"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4835"
-         d="M 55.373513,185.68601 90.147319,81.742558"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4837"
-         d="M 89.580354,94.215773 55.373513,185.68601 89.95833,107.44494"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4839"
-         d="m 89.391367,121.61905 -34.017854,64.06696 36.096725,14.74107"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4845"
-         d="M 239.25893,103.09821 208.26488,94.971724 238.125,117.83929"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4847"
-         d="M 238.125,132.76934 208.26488,94.971722 237.93601,148.26637"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4849"
-         d="M 208.26488,94.971722 238.125,186.06399"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4851"
-         d="m 239.25893,103.09821 -31.56102,9.44941 30.42709,5.29167"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4853"
-         d="m 238.125,132.76934 -30.42709,-20.22172 30.2381,35.71875"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4855"
-         d="M 207.69791,112.54762 238.125,186.06399"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4857"
-         d="m 207.79241,144.95907 31.46652,-41.86086"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4859"
-         d="M 238.125,117.83929 207.79241,144.95907 238.125,132.76934"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4861"
-         d="m 237.93601,148.26637 -30.1436,-3.3073 30.33259,41.10492"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <g
-         transform="translate(-1.320755,1.27071)"
-         id="g4887">
-        <circle
-           style="fill:#000000;stroke:#000000;stroke-width:0.11497087"
-           id="path82-60-75-2"
-           cx="200.98668"
-           cy="124.27924"
-           r="1.2775191" />
-        <circle
-           style="fill:#000000;stroke:#000000;stroke-width:0.11497087"
-           id="path82-6-6-92-3"
-           cx="200.98668"
-           cy="131.89207"
-           r="1.2775191" />
-      </g>
-      <path
-         inkscape:connector-curvature="0"
-         id="path326-2-7"
-         d="m 200.32738,219.28756 v 5.7463"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <text
-         id="text4906"
-         y="230.19272"
-         x="180.67261"
-         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         xml:space="preserve"><tspan
-           style="font-size:4.93888903px;stroke-width:0.26458332"
-           y="230.19272"
-           x="180.67261"
-           id="tspan4904"
-           sodipodi:role="line">ensemble output</tspan></text>
-      <text
-         id="text4910"
-         y="285.27484"
-         x="80.117912"
-         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         xml:space="preserve"><tspan
-           style="font-size:6.3499999px;stroke-width:0.26458332"
-           y="285.27484"
-           x="80.117912"
-           id="tspan4908"
-           sodipodi:role="line">In blue is what the previous variables affect</tspan></text>
-      <text
-         id="text4914"
-         y="189.90628"
-         x="139.48108"
-         style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         xml:space="preserve"><tspan
-           style="fill:#0000ff;fill-opacity:1;stroke-width:0.26458332"
-           y="189.90628"
-           x="139.48108"
-           id="tspan4912"
-           sodipodi:role="line">n_neurons</tspan></text>
-      <text
-         id="text4918"
-         y="242.76042"
-         x="65.058716"
-         style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         xml:space="preserve"><tspan
-           style="fill:#0000ff;fill-opacity:1;stroke-width:0.26458332"
-           y="242.76042"
-           x="65.058716"
-           id="tspan4916"
-           sodipodi:role="line">n_ensembles * ens_dimesnions</tspan></text>
-      <path
-         inkscape:connector-curvature="0"
-         id="path4920"
-         d="m 105.83333,101.7753 h 5.48066 v 25.70238 h -5.85863"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4924"
-         d="m 143.06399,96.672617 -27.78125,18.331843 27.59226,-1.5119"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4928"
-         d="m 115.28274,115.00446 27.43919,29.11737"
-         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <text
-         id="text4932"
-         y="134.50012"
-         x="103.96785"
-         style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         xml:space="preserve"><tspan
-           style="fill:#0000ff;fill-opacity:1;stroke-width:0.26458332"
-           y="134.50012"
-           x="103.96785"
-           id="tspan4930"
-           sodipodi:role="line">ens_dimensions</tspan></text>
-      <path
-         inkscape:connector-curvature="0"
-         id="path4934"
-         d="m 117.5506,129.36756 -5.29167,-6.61459"
-         style="fill:#0000ff;stroke:#0000ff;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)" />
+      <circle
+         r="6.0476193"
+         cy="144.43936"
+         cx="272.82852"
+         id="path10-7-6"
+         style="fill:none;stroke:#000000;stroke-width:0.26458332" />
+      <circle
+         r="6.0476193"
+         cy="181.33929"
+         cx="272.82852"
+         id="path10-5-0"
+         style="fill:none;stroke:#000000;stroke-width:0.26458332" />
+      <circle
+         r="1.2775191"
+         cy="156.08679"
+         cx="272.82852"
+         id="path82-9"
+         style="fill:#000000;stroke:#000000;stroke-width:0.11497086" />
+      <circle
+         r="1.2775191"
+         cy="162.88931"
+         cx="272.82852"
+         id="path82-6-2"
+         style="fill:#000000;stroke:#000000;stroke-width:0.11497087" />
+      <circle
+         r="1.2775191"
+         cy="169.69183"
+         cx="272.82852"
+         id="path82-2-0"
+         style="fill:#000000;stroke:#000000;stroke-width:0.11497087" />
+    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 89.580356,94.215773 -33.828867,9.638397 34.206845,3.59077"
+       id="path4807"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 55.751489,103.85417 90.147321,81.742558"
+       id="path4809"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 89.391367,121.61905 55.751489,103.85417 91.470238,200.42708"
+       id="path4811"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 56.129464,118.21726 90.147319,81.742558"
+       id="path4813"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 89.580354,94.215773 -33.45089,24.001487 33.82887,-10.77232"
+       id="path4815"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 89.391367,121.61905 -33.261903,-3.40179 35.340774,82.20982"
+       id="path4817"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 90.147319,81.742558 55.751489,132.76934 89.580354,94.215773"
+       id="path4819"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 55.751489,132.76934 34.206843,-25.3244"
+       id="path4821"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 55.751489,132.76934 89.391367,121.61905"
+       id="path4823"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 55.751489,132.76934 35.718749,67.65774"
+       id="path4825"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 90.147319,81.742558 54.995534,149.02232 89.580356,94.215773"
+       id="path4827"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 54.995534,149.02232 89.95833,107.44494"
+       id="path4829"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 54.995534,149.02232 89.391367,121.61905"
+       id="path4831"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 54.995534,149.02232 36.474704,51.40476"
+       id="path4833"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 55.373513,185.68601 90.147319,81.742558"
+       id="path4835"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 89.580354,94.215773 55.373513,185.68601 89.95833,107.44494"
+       id="path4837"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 89.391367,121.61905 -34.017854,64.06696 36.096725,14.74107"
+       id="path4839"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 239.25893,103.09821 208.26488,94.971724 238.125,117.83929"
+       id="path4845"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 238.125,132.76934 208.26488,94.971722 237.93601,148.26637"
+       id="path4847"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 208.26488,94.971722 238.125,186.06399"
+       id="path4849"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 239.25893,103.09821 -31.56102,9.44941 30.42709,5.29167"
+       id="path4851"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 238.125,132.76934 -30.42709,-20.22172 30.2381,35.71875"
+       id="path4853"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 207.69791,112.54762 238.125,186.06399"
+       id="path4855"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 207.79241,144.95907 31.46652,-41.86086"
+       id="path4857"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 238.125,117.83929 207.79241,144.95907 238.125,132.76934"
+       id="path4859"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 237.93601,148.26637 -30.1436,-3.3073 30.33259,41.10492"
+       id="path4861"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <g
+       id="g4887"
+       transform="translate(-1.320755,1.27071)"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <circle
+         r="1.2775191"
+         cy="124.27924"
+         cx="200.98668"
+         id="path82-60-75-2"
+         style="fill:#000000;stroke:#000000;stroke-width:0.11497087" />
+      <circle
+         r="1.2775191"
+         cy="131.89207"
+         cx="200.98668"
+         id="path82-6-6-92-3"
+         style="fill:#000000;stroke:#000000;stroke-width:0.11497087" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="173.4832"
+       y="227.41774"
+       id="text4906"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan4904"
+         x="173.4832"
+         y="227.41774"
+         style="font-size:7.05555534px;stroke-width:0.26458332">ensembleArray</tspan><tspan
+         sodipodi:role="line"
+         x="173.4832"
+         y="240.64691"
+         style="font-size:7.05555534px;stroke-width:0.26458332"
+         id="tspan1379" /></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 105.83333,101.7753 h 5.48066 v 25.70238 h -5.85863"
+       id="path4920"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 143.06399,96.672617 -27.78125,18.331843 27.59226,-1.5119"
+       id="path4924"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 115.28274,115.00446 27.43919,29.11737"
+       id="path4928"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot1381"
+       style="font-style:normal;font-weight:normal;font-size:18.66666603px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,0.41215648,10.322783)"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><flowRegion
+         id="flowRegion1383"><rect
+           id="rect1385"
+           width="307.33893"
+           height="142.55779"
+           x="336.75961"
+           y="826.16809" /></flowRegion><flowPara
+         id="flowPara1387"
+         style="font-size:26.66666794px">input</flowPara></flowRoot>    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="188.57445"
+       y="234.9523"
+       id="text1391"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan1389"
+         x="188.57445"
+         y="234.9523"
+         style="font-size:7.05555534px;stroke-width:0.26458332">output</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 199.65034,219.04241 v 2.69308"
+       id="path336-3"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="134.55605"
+       y="174.6302"
+       id="text1412"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan1410"
+         x="134.55605"
+         y="174.6302"
+         style="font-size:7.05555534px;stroke-width:0.26458332">ensemble</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="134.68352"
+       y="168.61433"
+       id="text1412-6"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan1410-7"
+         x="134.68352"
+         y="168.61433"
+         style="font-size:7.05555534px;stroke-width:0.26458332">individual</tspan></text>
+    <circle
+       style="fill:none;stroke:#000000;stroke-width:0.26458332"
+       id="path10-5-3-2-5-5"
+       cx="199.94942"
+       cy="166.59822"
+       r="6.0476193"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:none;stroke:#000000;stroke-width:0.26458332"
+       id="path10-5-3-2-5-5-3"
+       cx="199.57143"
+       cy="199.67113"
+       r="6.0476193"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <g
+       id="g4887-5"
+       transform="translate(-1.2262623,54.010525)"
+       inkscape:export-filename="/home/justin/Downloads/SNN.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <circle
+         r="1.2775191"
+         cy="124.27924"
+         cx="200.98668"
+         id="path82-60-75-2-6"
+         style="fill:#000000;stroke:#000000;stroke-width:0.11497087" />
+      <circle
+         r="1.2775191"
+         cy="131.89207"
+         cx="200.98668"
+         id="path82-6-6-92-3-2"
+         style="fill:#000000;stroke:#000000;stroke-width:0.11497087" />
     </g>
   </g>
 </svg>

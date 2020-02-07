@@ -1,0 +1,15 @@
+ensembles, n_neurons, ens_dim, acc, other
+1, 800, 300, 83%
+70, 1, 1, 75%
+100,1,1,76
+70,1,1,55, (Dropout = 0.1)
+1000, 1, 1, 82.5%, dropout=0.8
+1000, 1, 1, 86%, LIF, dropout=0.8
+100, 1, 1, 70%, LIF, dropout=0.8
+2000, 1, 1, 85%, LIF, dropout=0.8
+500, 1, 1, 85%, LIF, dropout=0.8, train/test align well here
+500, 100, 1, 82%, LIF, dropout=0.8,
+500, 100, 100, 77%, LIF, dropout=0.8,
+500, 1, 1, 85.5%, LIF, dropout=0.8, Recurrence = 1.0
+1000,1,1,81%,LIF,dropout=0.3,Shuffle data
+500,1,1,88%,LIF,dropout=0.8,Shuffle data

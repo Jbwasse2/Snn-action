@@ -68,6 +68,7 @@ def get_dataloaders(config, path):
     )
 
     selected_frames = np.arange(begin_frame, end_frame, skip_frame).tolist()
+    import pudb; pu.db
 
     dataset = Dataset_CRNN(
         data_path, all_X_list, all_y_list, selected_frames, transform=transform
