@@ -15,6 +15,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+from torch.optim.lr_scheduler import StepLR
+from torchvision import datasets, transforms
+import logging
 from dataloader import get_dataloaders
 from functions import DecoderRNN, ResCNNEncoder
 from nengo_dl import callbacks, config, utils
@@ -50,7 +53,9 @@ args.add_argument(
 )
 
 config = ConfigParser.from_args(args)
-logger = config.get_logger(__name__, 0)
+#logger = config.get_logger(__name__, 0)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 device = setup(config)
 # Step 1 - Get Pre-trained CNN
 # This is only needed if any of the config settings actually require this
@@ -199,7 +204,7 @@ with nengo_dl.Simulator(
 
     if config["SNN_trainer"]["do_SNN_training"]:
         for i in range(config["SNN_trainer"]["epochs"]):
-            print(i)
+            logger.info("epoch " + str(i) )
             #Do dropout
 #            if i != 0:
 #                sim.load_params("./temp_params")
@@ -222,16 +227,16 @@ with nengo_dl.Simulator(
 #            SNN.networks[0].ea_ensembles = initial_connections
 #            setup_network(SNN, device)
             sim.save_params("./temp_params")
-            logger.debug("training parameters")
+            logger.info("training parameters")
             logger.info(history.params)
-            logger.debug("training results")
-            logger.debug(history.history)
+            logger.info("training results")
+            logger.info(history.history)
             train_accs.append(history.history["probe_accuracy"])
             # save the parameters to file
             test_acc = (
                 sim.evaluate(test_data, test_labels, verbose=1)["probe_accuracy"] * 100
             )
-            logger.debug("test accuracy: %.2f%%" % (test_acc))
+            logger.info("test accuracy: %.2f%%" % (test_acc))
             test_accs.append(test_acc)
 
         sim.save_params(config["pickle_locations"]["SNN_weights"])
@@ -239,9 +244,7 @@ with nengo_dl.Simulator(
         sim.load_params(config["pickle_locations"]["SNN_weights"])
     final_test = sim.evaluate(test_data, test_labels, verbose=1)["probe_accuracy"] * 100
     # Step 4 - Test
-    logger.debug("test accuracy: %.2f%%" % (final_test))
+    logger.info("final test accuracy: %.2f%%" % (final_test))
     test_accs.append(final_test)
-    logger.debug("Training", train_accs)
-    logger.debug("Testing", test_accs)
-    print("Training", train_accs)
-    print("Testing", test_accs)
+    logger.info("Training = "+ str( train_accs))
+    logger.info("Testing = " + str(test_accs))
