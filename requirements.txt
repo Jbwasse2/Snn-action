@@ -1,7 +1,7 @@
 tqdm==4.41.0
 tensorflow-gpu==2.0.0
 nengo==3.0.0
-numpy==1.17.4
+numpy==1.22.0
 nengo_dl==3.0.0
 matplotlib==3.1.1
 nengo_loihi==0.10.0
