@@ -1,5 +1,5 @@
 tqdm==4.41.0
-tensorflow-gpu==2.0.0
+tensorflow-gpu==2.9.3
 nengo==3.0.0
 numpy==1.17.4
 nengo_dl==3.0.0
